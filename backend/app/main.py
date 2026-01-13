@@ -4,7 +4,7 @@ FastAPI server for the Noms food discovery app
 """
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from app.db import get_supabase
 
@@ -47,9 +47,18 @@ async def root():
 
 
 @app.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "ok"}
+async def health_check(response: Response):
+    """Health check endpoint with database connectivity verification"""
+    try:
+        # Test database connection with a simple query
+        supabase = get_supabase()
+        supabase.table("users").select("id").limit(1).execute()
+
+        return {"status": "ok", "database": "connected"}
+    except Exception as e:
+        # Database is down or unreachable
+        response.status_code = 503
+        return {"status": "degraded", "database": "disconnected", "error": str(e)}
 
 
 if __name__ == "__main__":
