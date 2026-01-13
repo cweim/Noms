@@ -17,7 +17,7 @@ None
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Project Foundation** - Set up monorepo structure, dev environment, and tooling
-- [~] **Phase 2: Database Schema** - Design and implement PostgreSQL schema for users, places, saves, and journal entries
+- [x] **Phase 2: Database Schema** - Design and implement PostgreSQL schema for users, places, saves, and journal entries
 - [ ] **Phase 3: Backend API Foundation** - FastAPI server setup, health checks, error handling
 - [ ] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
 - [ ] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
@@ -49,7 +49,7 @@ Plans:
 
 Plans:
 - [x] 02-01: Database Foundation - Supabase project setup, core schema migration
-- [ ] 02-02: Database Optimization - Performance indexes, triggers, Row Level Security
+- [x] 02-02: Database Optimization - Performance indexes, triggers, Row Level Security
 
 ### Phase 3: Backend API Foundation
 **Goal**: Set up FastAPI server with health checks and error handling
@@ -153,7 +153,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Foundation | 2/2 | Complete | 2026-01-13 |
-| 2. Database Schema | 1/2 | In Progress | - |
+| 2. Database Schema | 2/2 | Complete | 2026-01-13 |
 | 3. Backend API Foundation | 0/TBD | Not started | - |
 | 4. Authentication | 0/TBD | Not started | - |
 | 5. Google Places Integration | 0/TBD | Not started | - |
