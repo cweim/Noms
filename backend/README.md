@@ -45,6 +45,41 @@ cp .env.example .env
 
 Edit `.env` with your values (most will be configured in later phases).
 
+## Database Setup
+
+### Apply Migrations
+
+**Option 1: Supabase Dashboard (Recommended)**
+1. Go to Supabase Dashboard → SQL Editor
+2. Copy contents of `supabase/migrations/20260113000001_create_core_schema.sql`
+3. Paste and run
+
+**Option 2: Python Script**
+```bash
+cd backend
+source venv/bin/activate
+python supabase/apply_migration.py
+```
+
+### Verify Schema
+
+Check tables created:
+```sql
+SELECT table_name FROM information_schema.tables
+WHERE table_schema = 'public';
+```
+
+Expected tables: users, places, lists, saved_places, journal_entries
+
+### Performance Optimization
+
+Indexes have been added for common query patterns:
+- User's saved places and journal entries
+- Place lookups by Google Place ID
+- Chronological journal ordering
+
+The `users.updated_at` field is automatically maintained via trigger.
+
 ## Running the Server
 
 ### Development Mode (with hot reload)
