@@ -80,6 +80,18 @@ Indexes have been added for common query patterns:
 
 The `users.updated_at` field is automatically maintained via trigger.
 
+## Security
+
+Row Level Security (RLS) is enabled on all tables:
+
+- **users**: Users can only read/update their own profile
+- **places**: Authenticated users can read (public cached data from Google)
+- **lists**: Users can only manage their own lists
+- **saved_places**: Users can only access their own saves
+- **journal_entries**: Users can only access their own journal
+
+All queries automatically enforce these policies via Supabase Auth.
+
 ## Running the Server
 
 ### Development Mode (with hot reload)
