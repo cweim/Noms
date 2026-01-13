@@ -6,6 +6,7 @@ FastAPI server for the Noms food discovery app
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.db import get_supabase
 
 app = FastAPI(
     title="Noms API",
@@ -26,6 +27,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database connection on startup"""
+    try:
+        supabase = get_supabase()
+        print("✓ Supabase client initialized successfully")
+    except Exception as e:
+        print(f"✗ Failed to initialize Supabase client: {e}")
+        raise
 
 
 @app.get("/")
