@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-13)
 ## Current Position
 
 Phase: 4 of 12 (Authentication)
-Plan: Phase 3 complete, ready to plan Phase 4
-Status: Ready for Phase 4 planning
-Last activity: 2026-01-14 — Completed Phase 3 (Backend API Foundation)
+Plan: 1 of 1 complete in current phase
+Status: Phase complete
+Last activity: 2026-01-14 — Completed 04-01-PLAN.md (JWT Validation)
 
-Progress: █████░░░░░ 50% (6/12 plans across all phases)
+Progress: ██████░░░░ 58% (7/12 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: ~12 mins per plan
-- Total execution time: ~1.5 hours
+- Total plans completed: 7
+- Average duration: ~10 mins per plan
+- Total execution time: ~1.6 hours
 
 **By Phase:**
 
@@ -30,9 +30,10 @@ Progress: █████░░░░░ 50% (6/12 plans across all phases)
 | 1. Project Foundation | 2 | ~40m | ~20m |
 | 2. Database Schema | 2 | ~40m | ~20m |
 | 3. Backend API Foundation | 2 | ~10m | ~5m |
+| 4. Authentication | 1 | ~3m | ~3m |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 ✓, 02-02 ✓, 03-01 ✓, 03-02 ✓
+- Last 5 plans: 02-02 ✓, 03-01 ✓, 03-02 ✓, 04-01 ✓
 - Trend: Accelerating velocity, maintaining quality
 
 ## Accumulated Context
@@ -42,7 +43,10 @@ Progress: █████░░░░░ 50% (6/12 plans across all phases)
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-(None yet)
+| Phase | Decision | Rationale |
+|-------|----------|-----------|
+| 4 | Client-side auth with Supabase JS SDK | Backend only validates JWTs, no signup/login endpoints needed |
+| 4 | PyJWT for HS256 validation | Simpler than python-jose for Supabase JWT validation |
 
 ### Deferred Issues
 
@@ -59,5 +63,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed Phase 3 (Backend API Foundation)
+Stopped at: Completed Phase 4 (Authentication)
 Resume file: None

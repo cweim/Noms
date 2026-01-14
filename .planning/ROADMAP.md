@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Project Foundation** - Set up monorepo structure, dev environment, and tooling
 - [x] **Phase 2: Database Schema** - Design and implement PostgreSQL schema for users, places, saves, and journal entries
 - [x] **Phase 3: Backend API Foundation** - FastAPI server setup, health checks, error handling
-- [ ] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
+- [x] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
 - [ ] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
 - [ ] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
 - [ ] **Phase 7: Map View** - Interactive map with location services and place pins
@@ -64,12 +64,11 @@ Plans:
 ### Phase 4: Authentication
 **Goal**: Integrate Supabase Auth for user signup and login
 **Depends on**: Phase 3
-**Research**: Likely (new integration with Supabase Auth)
-**Research topics**: Supabase Auth setup with FastAPI, JWT token handling, session management, user management patterns
-**Plans**: TBD
+**Research**: Completed (Level 2 - Standard Research)
+**Plans**: 1 plan
 
 Plans:
-- [ ] TBD during phase planning
+- [x] 04-01: JWT Validation and User Profile Trigger - Backend auth foundation
 
 ### Phase 5: Google Places Integration
 **Goal**: Connect to Google Places API and implement search/details endpoints
@@ -156,7 +155,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 1. Project Foundation | 2/2 | Complete | 2026-01-13 |
 | 2. Database Schema | 2/2 | Complete | 2026-01-13 |
 | 3. Backend API Foundation | 2/2 | Complete | 2026-01-14 |
-| 4. Authentication | 0/TBD | Not started | - |
+| 4. Authentication | 1/1 | Complete | 2026-01-14 |
 | 5. Google Places Integration | 0/TBD | Not started | - |
 | 6. Mobile App Foundation | 0/TBD | Not started | - |
 | 7. Map View | 0/TBD | Not started | - |
