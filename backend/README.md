@@ -61,6 +61,23 @@ source venv/bin/activate
 python supabase/apply_migration.py
 ```
 
+### User Profile Trigger (Phase 4)
+
+The trigger migration `20260114000001_add_user_trigger.sql` must be applied after the core schema. This creates user profiles automatically when users sign up via Supabase Auth.
+
+**Apply via Supabase Dashboard:**
+1. Go to SQL Editor
+2. Copy contents of `supabase/migrations/20260114000001_add_user_trigger.sql`
+3. Run the SQL
+
+**Verify trigger exists:**
+```sql
+SELECT trigger_name FROM information_schema.triggers
+WHERE trigger_schema = 'auth' AND event_object_table = 'users';
+```
+
+Expected: `on_auth_user_created`
+
 ### Verify Schema
 
 Check tables created:
