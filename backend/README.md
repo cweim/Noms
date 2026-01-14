@@ -109,6 +109,68 @@ Row Level Security (RLS) is enabled on all tables:
 
 All queries automatically enforce these policies via Supabase Auth.
 
+## Authentication
+
+### Overview
+
+Authentication is handled client-side by Supabase Auth. The backend only validates JWTs issued by Supabase.
+
+**Flow:**
+1. Mobile app uses Supabase JS SDK for signup/login
+2. Supabase Auth issues JWT tokens
+3. App includes token in API requests: `Authorization: Bearer <token>`
+4. FastAPI validates JWT using `SUPABASE_JWT_SECRET`
+5. User ID extracted from JWT `sub` claim
+
+### Protected Endpoints
+
+Endpoints requiring authentication use the `get_current_user` dependency:
+
+```python
+from app.auth import get_current_user
+
+@router.get("/protected")
+async def protected_route(user: dict = Depends(get_current_user)):
+    user_id = user["sub"]
+    email = user["email"]
+    # ... your logic
+```
+
+### Example: Get Current User Profile
+
+```bash
+curl -X GET http://localhost:8000/api/users/me \
+  -H "Authorization: Bearer <your_jwt_token>"
+```
+
+Response:
+```json
+{
+  "user_id": "uuid-from-jwt",
+  "email": "user@example.com",
+  "created_at": "2026-01-14T00:00:00Z",
+  "updated_at": "2026-01-14T00:00:00Z"
+}
+```
+
+### Error Responses
+
+| Scenario | Status | Error Type |
+|----------|--------|------------|
+| No Authorization header | 401 | `authentication_error` |
+| Expired token | 401 | `authentication_error` |
+| Invalid token | 401 | `authentication_error` |
+| Wrong audience | 401 | `authentication_error` |
+
+### Configuration
+
+Set in `.env`:
+```
+SUPABASE_JWT_SECRET=your_jwt_secret_here
+```
+
+Get the JWT secret from: Supabase Dashboard → Settings → API → JWT Secret
+
 ## API Structure
 
 ### Router Organization
