@@ -122,6 +122,17 @@ async def startup_event():
         raise
 
 
+# API Routes - To be implemented in future phases
+# Phase 4: Authentication
+# app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+
+# Phase 5: Google Places
+# app.include_router(places.router, prefix="/api/places", tags=["places"])
+
+# Phase 9-11: User Data
+# app.include_router(users.router, prefix="/api/users", tags=["users"])
+
+
 @app.get("/")
 async def root():
     """Root endpoint - API status"""

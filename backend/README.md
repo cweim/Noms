@@ -92,6 +92,54 @@ Row Level Security (RLS) is enabled on all tables:
 
 All queries automatically enforce these policies via Supabase Auth.
 
+## API Structure
+
+### Router Organization
+
+The API is organized using FastAPI routers by feature:
+
+- **`/api/auth`** - Authentication endpoints (Phase 4)
+  - User signup, login, logout
+  - Password reset, email verification
+
+- **`/api/places`** - Google Places integration (Phase 5)
+  - Search places near location
+  - Get place details
+  - Cache place data
+
+- **`/api/users`** - User data endpoints (Phases 9-11)
+  - Saved places and lists management
+  - Photo journal entries
+  - User preferences
+
+Routers are implemented in `app/routers/` and included in `main.py` with prefix patterns.
+
+### Error Response Format
+
+All API errors return a consistent JSON format:
+
+```json
+{
+  "error": "error_type",
+  "message": "Human-readable error message",
+  "detail": {
+    "additional": "context"
+  }
+}
+```
+
+**Error Types:**
+
+| Status Code | Error Type | Description |
+|-------------|------------|-------------|
+| 400 | `validation_error` | Request validation failed |
+| 401 | `authentication_error` | Authentication required or failed |
+| 404 | `not_found` | Requested resource not found |
+| 500 | `internal_error` | Unexpected server error |
+| 503 | `database_error` | Database unavailable or query failed |
+
+Stack traces are logged server-side but never exposed to clients.
+
 ## Running the Server
 
 ### Development Mode (with hot reload)
