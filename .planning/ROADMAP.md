@@ -73,12 +73,13 @@ Plans:
 ### Phase 5: Google Places Integration
 **Goal**: Connect to Google Places API and implement search/details endpoints
 **Depends on**: Phase 3
-**Research**: Likely (external API integration)
-**Research topics**: Google Places API current docs and pricing, New vs Legacy API differences, rate limits and caching strategies, search and details endpoints
-**Plans**: TBD
+**Research**: Completed (Level 2 - Standard Research)
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 05-01: Google Places Service Module - API client wrapper with caching
+- [ ] 05-02: Places Search Endpoint - Router and Pydantic schemas
+- [ ] 05-03: Place Details and Photo Endpoints - Complete integration
 
 ### Phase 6: Mobile App Foundation
 **Goal**: Set up React Native/Expo with navigation and bottom tabs
