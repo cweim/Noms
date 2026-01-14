@@ -3,10 +3,23 @@ Noms Backend API
 FastAPI server for the Noms food discovery app
 """
 
+import logging
 import uvicorn
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.db import get_supabase
+from app.errors import (
+    DatabaseError,
+    AuthenticationError,
+    NotFoundError,
+    ValidationError,
+    ErrorResponse,
+)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Noms API",
@@ -27,6 +40,75 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Exception handlers - provide consistent error responses
+@app.exception_handler(DatabaseError)
+async def database_error_handler(request: Request, exc: DatabaseError):
+    """Handle database errors with 503 Service Unavailable"""
+    logger.error(f"Database error: {exc.message}", extra={"detail": exc.detail})
+    return JSONResponse(
+        status_code=503,
+        content=ErrorResponse(
+            error="database_error",
+            message=exc.message,
+            detail=exc.detail,
+        ).model_dump(),
+    )
+
+
+@app.exception_handler(AuthenticationError)
+async def authentication_error_handler(request: Request, exc: AuthenticationError):
+    """Handle authentication errors with 401 Unauthorized"""
+    logger.warning(f"Authentication error: {exc.message}")
+    return JSONResponse(
+        status_code=401,
+        content=ErrorResponse(
+            error="authentication_error",
+            message=exc.message,
+            detail=exc.detail,
+        ).model_dump(),
+    )
+
+
+@app.exception_handler(NotFoundError)
+async def not_found_error_handler(request: Request, exc: NotFoundError):
+    """Handle not found errors with 404 Not Found"""
+    return JSONResponse(
+        status_code=404,
+        content=ErrorResponse(
+            error="not_found",
+            message=exc.message,
+            detail=exc.detail,
+        ).model_dump(),
+    )
+
+
+@app.exception_handler(ValidationError)
+async def validation_error_handler(request: Request, exc: ValidationError):
+    """Handle validation errors with 400 Bad Request"""
+    return JSONResponse(
+        status_code=400,
+        content=ErrorResponse(
+            error="validation_error",
+            message=exc.message,
+            detail=exc.detail,
+        ).model_dump(),
+    )
+
+
+@app.exception_handler(Exception)
+async def generic_error_handler(request: Request, exc: Exception):
+    """Catch-all handler for unexpected errors - log details, return generic message"""
+    logger.error(f"Unhandled exception: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content=ErrorResponse(
+            error="internal_error",
+            message="An internal error occurred. Please try again later.",
+            detail=None,  # Don't expose internal error details to clients
+        ).model_dump(),
+    )
 
 
 @app.on_event("startup")
