@@ -93,12 +93,12 @@ Plans:
 ### Phase 7: Map View
 **Goal**: Build interactive map with location services and place pins
 **Depends on**: Phase 6
-**Research**: Likely (map library selection and location services)
-**Research topics**: React Native map libraries (react-native-maps vs alternatives), location permissions on iOS/Android, custom pin rendering
-**Plans**: TBD
+**Research**: Completed (Level 1 - Quick Verification)
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 07-01: Location Services and Map Foundation - expo-location, react-native-maps, Now screen map
+- [ ] 07-02: Restaurant Markers - PlaceMarker component, mock data rendering
 
 ### Phase 8: Restaurant Cards
 **Goal**: Implement swipeable card UI with restaurant details and actions
@@ -159,7 +159,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 4. Authentication | 1/1 | Complete | 2026-01-14 |
 | 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
 | 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
-| 7. Map View | 0/TBD | Not started | - |
+| 7. Map View | 0/2 | In progress | - |
 | 8. Restaurant Cards | 0/TBD | Not started | - |
 | 9. Restaurant Picker Logic | 0/TBD | Not started | - |
 | 10. Saved Places | 0/TBD | Not started | - |
