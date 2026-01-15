@@ -1,9 +1,48 @@
+import { useMemo } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { useLocation } from '../../lib/use-location';
+import { PlaceMarker, Place } from '../../components/PlaceMarker';
+
+// Mock data for development - will be replaced with API calls in Phase 9
+const MOCK_PLACES: Place[] = [
+  {
+    google_place_id: 'mock_1',
+    name: 'The Cozy Cafe',
+    address: '123 Main St',
+    location: { lat: 0, lng: 0 },
+    rating: 4.5,
+  },
+  {
+    google_place_id: 'mock_2',
+    name: 'Pasta Paradise',
+    address: '456 Oak Ave',
+    location: { lat: 0, lng: 0 },
+    rating: 4.2,
+  },
+  {
+    google_place_id: 'mock_3',
+    name: 'Sushi Central',
+    address: '789 Pine Blvd',
+    location: { lat: 0, lng: 0 },
+    rating: 4.8,
+  },
+];
 
 export default function NowScreen() {
   const { location, loading, error, requestPermission } = useLocation();
+
+  // Generate mock locations relative to user's position
+  const placesWithLocation = useMemo(() => {
+    if (!location) return [];
+    return MOCK_PLACES.map((place, index) => ({
+      ...place,
+      location: {
+        lat: location.latitude + (Math.random() - 0.5) * 0.01,
+        lng: location.longitude + (Math.random() - 0.5) * 0.01,
+      },
+    }));
+  }, [location]);
 
   if (loading) {
     return (
@@ -32,7 +71,15 @@ export default function NowScreen() {
         initialRegion={location}
         showsUserLocation
         showsMyLocationButton
-      />
+      >
+        {placesWithLocation.map((place) => (
+          <PlaceMarker
+            key={place.google_place_id}
+            place={place}
+            onPress={(p) => console.log('Tapped:', p.name)}
+          />
+        ))}
+      </MapView>
     </View>
   );
 }
