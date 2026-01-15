@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Backend API Foundation** - FastAPI server setup, health checks, error handling
 - [x] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
 - [x] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
-- [ ] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
+- [x] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
 - [ ] **Phase 7: Map View** - Interactive map with location services and place pins
 - [ ] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
 - [ ] **Phase 9: Restaurant Picker Logic** - On-demand fetching, preference-based ranking, skip/like actions
@@ -88,7 +88,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 06-01: Navigation and Tabs - Expo Router, bottom tabs, Supabase client
+- [x] 06-01: Navigation and Tabs - Expo Router, bottom tabs, Supabase client
 
 ### Phase 7: Map View
 **Goal**: Build interactive map with location services and place pins
@@ -158,7 +158,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 3. Backend API Foundation | 2/2 | Complete | 2026-01-14 |
 | 4. Authentication | 1/1 | Complete | 2026-01-14 |
 | 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
-| 6. Mobile App Foundation | 0/1 | Not started | - |
+| 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
 | 7. Map View | 0/TBD | Not started | - |
 | 8. Restaurant Cards | 0/TBD | Not started | - |
 | 9. Restaurant Picker Logic | 0/TBD | Not started | - |
