@@ -104,3 +104,48 @@ async def get_place_details(
         phone_number=details.get("formatted_phone_number"),
         hours=details.get("opening_hours", {}).get("weekday_text")
     )
+
+
+@router.get("/{place_id}/photo")
+async def get_place_photo(
+    place_id: str,
+    max_width: int = Query(default=400, ge=100, le=1600),
+    user: dict = Depends(get_current_user)
+):
+    """
+    Get a photo for a place.
+
+    Returns the image directly (not JSON).
+    Mobile client can use this URL as image source.
+
+    Requires authentication.
+    """
+    service = get_places_service()
+    supabase = get_supabase()
+
+    # Get photo_reference from cache
+    if place_id.startswith("ChIJ"):
+        # Look up by Google place_id
+        result = supabase.table("places").select("photo_reference").eq("google_place_id", place_id).execute()
+    else:
+        # Look up by internal UUID
+        result = supabase.table("places").select("photo_reference").eq("id", place_id).execute()
+
+    if not result.data or not result.data[0].get("photo_reference"):
+        raise NotFoundError(
+            message="Photo not found",
+            detail={"place_id": place_id, "hint": "Place may not have a photo"}
+        )
+
+    photo_reference = result.data[0]["photo_reference"]
+
+    # Fetch photo from Google
+    photo_data = service.get_place_photo(photo_reference, max_width=max_width)
+    if not photo_data:
+        raise NotFoundError(message="Failed to fetch photo")
+
+    # Return image as streaming response
+    return StreamingResponse(
+        io.BytesIO(photo_data),
+        media_type="image/jpeg"
+    )

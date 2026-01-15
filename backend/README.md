@@ -171,6 +171,106 @@ SUPABASE_JWT_SECRET=your_jwt_secret_here
 
 Get the JWT secret from: Supabase Dashboard → Settings → API → JWT Secret
 
+## Google Places Integration
+
+The Places API provides search, details, and photo endpoints powered by Google Places API with intelligent caching.
+
+### Endpoints
+
+All places endpoints require authentication via JWT token.
+
+#### Search Places
+
+```bash
+curl -X GET "http://localhost:8000/api/places/search?q=sushi&lat=1.3521&lng=103.8198&radius=1000" \
+  -H "Authorization: Bearer <your_jwt_token>"
+```
+
+**Query Parameters:**
+- `q` (required): Search query (e.g., "pizza", "sushi restaurant")
+- `lat` (required): Latitude (-90 to 90)
+- `lng` (required): Longitude (-180 to 180)
+- `radius` (optional): Search radius in meters (100-50000, default: 1000)
+
+**Response:**
+```json
+{
+  "places": [
+    {
+      "id": "uuid-from-cache",
+      "google_place_id": "ChIJ...",
+      "name": "Sushi Restaurant",
+      "address": "123 Main St",
+      "location": {"lat": 1.3521, "lng": 103.8198},
+      "photo_reference": "photo_ref_string",
+      "types": ["restaurant", "food"],
+      "rating": 4.5,
+      "price_level": 2,
+      "open_now": true
+    }
+  ],
+  "count": 1
+}
+```
+
+#### Get Place Details
+
+```bash
+curl -X GET "http://localhost:8000/api/places/{place_id}" \
+  -H "Authorization: Bearer <your_jwt_token>"
+```
+
+**Path Parameters:**
+- `place_id`: Either a Google Place ID (starts with "ChIJ...") or internal UUID
+
+**Response:**
+```json
+{
+  "id": "uuid-from-cache",
+  "google_place_id": "ChIJ...",
+  "name": "Sushi Restaurant",
+  "address": "123 Main St, City",
+  "location": {"lat": 1.3521, "lng": 103.8198},
+  "photo_reference": "photo_ref_string",
+  "types": ["restaurant", "food"],
+  "rating": 4.5,
+  "price_level": 2,
+  "open_now": true,
+  "website": "https://example.com",
+  "phone_number": "+1 234 567 8900",
+  "hours": ["Monday: 9:00 AM – 10:00 PM", "Tuesday: 9:00 AM – 10:00 PM"]
+}
+```
+
+#### Get Place Photo
+
+```bash
+curl -X GET "http://localhost:8000/api/places/{place_id}/photo?max_width=400" \
+  -H "Authorization: Bearer <your_jwt_token>" \
+  --output photo.jpg
+```
+
+**Query Parameters:**
+- `max_width` (optional): Maximum image width (100-1600, default: 400)
+
+**Response:** Binary JPEG image data (not JSON)
+
+### Caching Behavior
+
+- Place data is cached for 7 days to reduce API costs
+- Search results are cached immediately after fetching
+- Details check cache first, fetch from API only if stale
+- Photos are fetched directly from Google (not cached locally)
+
+### Configuration
+
+Set in `.env`:
+```
+GOOGLE_PLACES_API_KEY=your_google_api_key_here
+```
+
+Get your API key from: Google Cloud Console → APIs & Services → Credentials
+
 ## API Structure
 
 ### Router Organization
