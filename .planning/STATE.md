@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Phase 5 — Google Places Integration
+**Current focus:** Phase 6 — Mobile App Foundation
 
 ## Current Position
 
