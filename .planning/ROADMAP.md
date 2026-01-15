@@ -78,7 +78,7 @@ Plans:
 
 Plans:
 - [x] 05-01: Google Places Service Module - API client wrapper with caching
-- [ ] 05-02: Places Search Endpoint - Router and Pydantic schemas
+- [x] 05-02: Places Search Endpoint - Router and Pydantic schemas
 - [ ] 05-03: Place Details and Photo Endpoints - Complete integration
 
 ### Phase 6: Mobile App Foundation
@@ -157,7 +157,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 2. Database Schema | 2/2 | Complete | 2026-01-13 |
 | 3. Backend API Foundation | 2/2 | Complete | 2026-01-14 |
 | 4. Authentication | 1/1 | Complete | 2026-01-14 |
-| 5. Google Places Integration | 1/3 | In progress | - |
+| 5. Google Places Integration | 2/3 | In progress | - |
 | 6. Mobile App Foundation | 0/TBD | Not started | - |
 | 7. Map View | 0/TBD | Not started | - |
 | 8. Restaurant Cards | 0/TBD | Not started | - |
