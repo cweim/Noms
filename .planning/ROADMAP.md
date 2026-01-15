@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Database Schema** - Design and implement PostgreSQL schema for users, places, saves, and journal entries
 - [x] **Phase 3: Backend API Foundation** - FastAPI server setup, health checks, error handling
 - [x] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
-- [ ] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
+- [x] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
 - [ ] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
 - [ ] **Phase 7: Map View** - Interactive map with location services and place pins
 - [ ] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
@@ -79,7 +79,7 @@ Plans:
 Plans:
 - [x] 05-01: Google Places Service Module - API client wrapper with caching
 - [x] 05-02: Places Search Endpoint - Router and Pydantic schemas
-- [ ] 05-03: Place Details and Photo Endpoints - Complete integration
+- [x] 05-03: Place Details and Photo Endpoints - Complete integration
 
 ### Phase 6: Mobile App Foundation
 **Goal**: Set up React Native/Expo with navigation and bottom tabs
@@ -157,7 +157,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 2. Database Schema | 2/2 | Complete | 2026-01-13 |
 | 3. Backend API Foundation | 2/2 | Complete | 2026-01-14 |
 | 4. Authentication | 1/1 | Complete | 2026-01-14 |
-| 5. Google Places Integration | 2/3 | In progress | - |
+| 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
 | 6. Mobile App Foundation | 0/TBD | Not started | - |
 | 7. Map View | 0/TBD | Not started | - |
 | 8. Restaurant Cards | 0/TBD | Not started | - |
