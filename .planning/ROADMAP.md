@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Authentication** - Supabase Auth integration for user signup/login
 - [x] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
 - [x] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
-- [ ] **Phase 7: Map View** - Interactive map with location services and place pins
+- [x] **Phase 7: Map View** - Interactive map with location services and place pins
 - [ ] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
 - [ ] **Phase 9: Restaurant Picker Logic** - On-demand fetching, preference-based ranking, skip/like actions
 - [ ] **Phase 10: Saved Places** - Save functionality, default list, persistent storage
@@ -98,7 +98,7 @@ Plans:
 
 Plans:
 - [x] 07-01: Location Services and Map Foundation - expo-location, react-native-maps, Now screen map
-- [ ] 07-02: Restaurant Markers - PlaceMarker component, mock data rendering
+- [x] 07-02: Restaurant Markers - PlaceMarker component, mock data rendering
 
 ### Phase 8: Restaurant Cards
 **Goal**: Implement swipeable card UI with restaurant details and actions
@@ -159,7 +159,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 4. Authentication | 1/1 | Complete | 2026-01-14 |
 | 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
 | 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
-| 7. Map View | 1/2 | In progress | - |
+| 7. Map View | 2/2 | Complete | 2026-01-16 |
 | 8. Restaurant Cards | 0/TBD | Not started | - |
 | 9. Restaurant Picker Logic | 0/TBD | Not started | - |
 | 10. Saved Places | 0/TBD | Not started | - |
