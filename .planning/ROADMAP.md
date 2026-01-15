@@ -103,11 +103,11 @@ Plans:
 ### Phase 8: Restaurant Cards
 **Goal**: Implement swipeable card UI with restaurant details and actions
 **Depends on**: Phase 6
-**Research**: Unlikely (UI components, can use gesture libraries or build custom)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - established gesture library patterns)
+**Plans**: 1 plan
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 08-01: Swipeable Restaurant Cards - Gesture handling, card component, skip/like actions
 
 ### Phase 9: Restaurant Picker Logic
 **Goal**: Implement on-demand fetching, preference-based ranking, and skip/like actions
