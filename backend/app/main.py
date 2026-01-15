@@ -123,7 +123,7 @@ async def startup_event():
 
 
 # API Routes
-from app.routers import users
+from app.routers import users, places
 
 # Phase 4: Users router (protected endpoints)
 app.include_router(users.router, prefix="/api/users", tags=["users"])
@@ -132,7 +132,7 @@ app.include_router(users.router, prefix="/api/users", tags=["users"])
 # No /api/auth router needed - client uses Supabase JS SDK directly
 
 # Phase 5: Google Places
-# app.include_router(places.router, prefix="/api/places", tags=["places"])
+app.include_router(places.router, prefix="/api/places", tags=["places"])
 
 
 @app.get("/")
