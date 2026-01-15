@@ -3,9 +3,14 @@ Places router for Google Places API endpoints
 """
 
 from fastapi import APIRouter, Depends, Query
+from fastapi.responses import StreamingResponse
+import io
+
 from app.services.places import get_places_service
-from app.schemas.places import PlaceResult, PlaceSearchResponse
+from app.schemas.places import PlaceResult, PlaceSearchResponse, PlaceDetailResponse
 from app.auth import get_current_user
+from app.db import get_supabase
+from app.errors import NotFoundError
 
 router = APIRouter()
 
@@ -50,3 +55,52 @@ async def search_places(
     ]
 
     return PlaceSearchResponse(places=places, count=len(places))
+
+
+@router.get("/{place_id}", response_model=PlaceDetailResponse)
+async def get_place_details(
+    place_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """
+    Get detailed information about a place.
+
+    place_id can be either:
+    - Google Place ID (starts with "ChIJ...")
+    - Internal UUID from our cache
+
+    Requires authentication.
+    """
+    service = get_places_service()
+
+    # Check if it's a Google place_id or internal UUID
+    if place_id.startswith("ChIJ"):
+        google_place_id = place_id
+    else:
+        # Look up Google place_id from our cache by internal UUID
+        supabase = get_supabase()
+        result = supabase.table("places").select("google_place_id").eq("id", place_id).execute()
+        if not result.data:
+            raise NotFoundError(message="Place not found", detail={"place_id": place_id})
+        google_place_id = result.data[0]["google_place_id"]
+
+    # Get details (uses cache if fresh)
+    details = service.get_place_details(google_place_id)
+    if not details:
+        raise NotFoundError(message="Place not found", detail={"google_place_id": google_place_id})
+
+    return PlaceDetailResponse(
+        id=details.get("cached_id"),
+        google_place_id=details.get("place_id") or google_place_id,
+        name=details["name"],
+        address=details.get("formatted_address"),
+        location={"lat": details["geometry"]["location"]["lat"], "lng": details["geometry"]["location"]["lng"]} if "geometry" in details else None,
+        photo_reference=details.get("photos", [{}])[0].get("photo_reference") if details.get("photos") else None,
+        types=details.get("types", []),
+        rating=details.get("rating"),
+        price_level=details.get("price_level"),
+        open_now=details.get("opening_hours", {}).get("open_now"),
+        website=details.get("website"),
+        phone_number=details.get("formatted_phone_number"),
+        hours=details.get("opening_hours", {}).get("weekday_text")
+    )

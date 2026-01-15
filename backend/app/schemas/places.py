@@ -43,3 +43,21 @@ class PlaceSearchResponse(BaseModel):
     """Response from place search"""
     places: list[PlaceResult]
     count: int
+
+
+class PlaceDetailResponse(BaseModel):
+    """Extended place data with additional detail fields"""
+    id: Optional[str] = None  # Internal UUID from cache
+    google_place_id: str
+    name: str
+    address: Optional[str] = None
+    location: Optional[PlaceLocation] = None
+    photo_reference: Optional[str] = None
+    types: list[str] = []
+    rating: Optional[float] = None
+    price_level: Optional[int] = None
+    open_now: Optional[bool] = None
+    # Additional detail fields
+    website: Optional[str] = None
+    phone_number: Optional[str] = None
+    hours: Optional[list[str]] = None  # Opening hours text
