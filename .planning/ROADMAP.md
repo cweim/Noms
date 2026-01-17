@@ -122,11 +122,12 @@ Plans:
 ### Phase 10: Saved Places
 **Goal**: Build save functionality with default list and persistent storage
 **Depends on**: Phase 9
-**Research**: Unlikely (standard CRUD operations)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - standard CRUD operations)
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 10-01: Backend Saves API - Pydantic schemas and CRUD endpoints
+- [ ] 10-02: Mobile Saved Places UI - Save hook, saved screen, picker integration
 
 ### Phase 11: Photo Journal
 **Goal**: Implement photo capture, place detection, optional rating, and journal entries
@@ -163,6 +164,6 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 7. Map View | 2/2 | Complete | 2026-01-16 |
 | 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
-| 10. Saved Places | 0/TBD | Not started | - |
+| 10. Saved Places | 0/2 | Not started | - |
 | 11. Photo Journal | 0/TBD | Not started | - |
 | 12. Integration & Polish | 0/TBD | Not started | - |
