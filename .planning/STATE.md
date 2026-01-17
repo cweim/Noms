@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Phase 10 — Saved Places
+**Current focus:** Phase 11 — Photo Journal
 
 ## Current Position
 
 Phase: 10 of 12 (Saved Places)
-Plan: 1 of 2 complete in current phase
-Status: In progress
-Last activity: 2026-01-17 — Completed 10-01-PLAN.md (Backend Saves API)
+Plan: 2 of 2 complete in current phase
+Status: Phase complete
+Last activity: 2026-01-17 — Completed 10-02-PLAN.md (Mobile Saved Places UI)
 
-Progress: █████████████████░░░ 17/18 plans complete (94%)
+Progress: ██████████████████░░ 18/18 plans complete in planned phases
 
 ## Performance Metrics
 
@@ -52,6 +52,8 @@ Recent decisions affecting current work:
 | 4 | PyJWT for HS256 validation | Simpler than python-jose for Supabase JWT validation |
 | 10 | NULL list_id for default "Saved" list | No explicit list record needed for MVP |
 | 10 | 409 Conflict for duplicate saves | Prevents same place saved to same list twice |
+| 10 | Optimistic UI updates for saves | Better perceived performance, rollback on error |
+| 10 | Silent handling of "already saved" | Treat as success for better UX |
 
 ### Deferred Issues
 
@@ -68,6 +70,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed 10-01-PLAN.md (Backend Saves API)
+Stopped at: Completed Phase 10 (Saved Places)
 Resume file: None
-Next: Execute 10-02-PLAN.md (Mobile Saved Places UI)
+Next: Plan Phase 11 (Photo Journal)
