@@ -132,12 +132,14 @@ Plans:
 ### Phase 11: Photo Journal
 **Goal**: Implement photo capture, place detection, optional rating, and journal entries
 **Depends on**: Phase 6
-**Research**: Likely (photo handling and permissions)
-**Research topics**: Expo Camera vs ImagePicker APIs, photo permissions on iOS/Android, nearby place detection logic, image storage strategies
-**Plans**: TBD
+**Research**: Completed (Level 1 - Quick Verification)
+**Research topics**: expo-image-picker APIs, Supabase Storage upload patterns
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 11-01: Backend Journal API - Pydantic schemas and CRUD endpoints for journal_entries
+- [ ] 11-02: Mobile Photo Capture - expo-image-picker, Supabase Storage upload
+- [ ] 11-03: Journal Screen UI - FlatList display, add entry modal, FAB
 
 ### Phase 12: Integration & Polish
 **Goal**: End-to-end testing, UI polish, and cross-platform verification
@@ -165,5 +167,5 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 2/2 | Complete | 2026-01-17 |
-| 11. Photo Journal | 0/TBD | Not started | - |
+| 11. Photo Journal | 0/3 | Not started | - |
 | 12. Integration & Polish | 0/TBD | Not started | - |
