@@ -49,3 +49,12 @@ class ValidationError(Exception):
         self.message = message
         self.detail = detail
         super().__init__(message)
+
+
+class ConflictError(Exception):
+    """Raised when a resource already exists (409 Conflict)"""
+
+    def __init__(self, message: str, detail: Optional[dict] = None):
+        self.message = message
+        self.detail = detail
+        super().__init__(message)

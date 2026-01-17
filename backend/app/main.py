@@ -14,6 +14,7 @@ from app.errors import (
     AuthenticationError,
     NotFoundError,
     ValidationError,
+    ConflictError,
     ErrorResponse,
 )
 
@@ -97,6 +98,19 @@ async def validation_error_handler(request: Request, exc: ValidationError):
     )
 
 
+@app.exception_handler(ConflictError)
+async def conflict_error_handler(request: Request, exc: ConflictError):
+    """Handle conflict errors with 409 Conflict"""
+    return JSONResponse(
+        status_code=409,
+        content=ErrorResponse(
+            error="conflict",
+            message=exc.message,
+            detail=exc.detail,
+        ).model_dump(),
+    )
+
+
 @app.exception_handler(Exception)
 async def generic_error_handler(request: Request, exc: Exception):
     """Catch-all handler for unexpected errors - log details, return generic message"""
@@ -123,7 +137,7 @@ async def startup_event():
 
 
 # API Routes
-from app.routers import users, places
+from app.routers import users, places, saves
 
 # Phase 4: Users router (protected endpoints)
 app.include_router(users.router, prefix="/api/users", tags=["users"])
@@ -133,6 +147,9 @@ app.include_router(users.router, prefix="/api/users", tags=["users"])
 
 # Phase 5: Google Places
 app.include_router(places.router, prefix="/api/places", tags=["places"])
+
+# Phase 10: Saved Places
+app.include_router(saves.router, prefix="/api/saves", tags=["saves"])
 
 
 @app.get("/")
