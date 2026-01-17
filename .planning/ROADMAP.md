@@ -112,11 +112,12 @@ Plans:
 ### Phase 9: Restaurant Picker Logic
 **Goal**: Implement on-demand fetching, preference-based ranking, and skip/like actions
 **Depends on**: Phase 5, Phase 7, Phase 8
-**Research**: Unlikely (rule-based ranking logic, internal patterns)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - established patterns, internal logic)
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 09-01: API Integration - API client module, usePlaces hook for data fetching
+- [ ] 09-02: Restaurant Picker UI - Card stack, skip/like state, ranking logic
 
 ### Phase 10: Saved Places
 **Goal**: Build save functionality with default list and persistent storage
