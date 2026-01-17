@@ -1,50 +1,26 @@
-import { useMemo } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { useLocation } from '../../lib/use-location';
+import { usePlaces } from '../../lib/use-places';
+import { rankPlaces } from '../../lib/rank-places';
 import { PlaceMarker, Place } from '../../components/PlaceMarker';
-
-// Mock data for development - will be replaced with API calls in Phase 9
-const MOCK_PLACES: Place[] = [
-  {
-    google_place_id: 'mock_1',
-    name: 'The Cozy Cafe',
-    address: '123 Main St',
-    location: { lat: 0, lng: 0 },
-    rating: 4.5,
-  },
-  {
-    google_place_id: 'mock_2',
-    name: 'Pasta Paradise',
-    address: '456 Oak Ave',
-    location: { lat: 0, lng: 0 },
-    rating: 4.2,
-  },
-  {
-    google_place_id: 'mock_3',
-    name: 'Sushi Central',
-    address: '789 Pine Blvd',
-    location: { lat: 0, lng: 0 },
-    rating: 4.8,
-  },
-];
+import { RestaurantPicker } from '../../components/RestaurantPicker';
 
 export default function NowScreen() {
-  const { location, loading, error, requestPermission } = useLocation();
+  const { location, loading: locationLoading, error: locationError, requestPermission } = useLocation();
+  const { places, loading: placesLoading, error: placesError } = usePlaces(
+    location ? { latitude: location.latitude, longitude: location.longitude } : null
+  );
 
-  // Generate mock locations relative to user's position
-  const placesWithLocation = useMemo(() => {
-    if (!location) return [];
-    return MOCK_PLACES.map((place, index) => ({
-      ...place,
-      location: {
-        lat: location.latitude + (Math.random() - 0.5) * 0.01,
-        lng: location.longitude + (Math.random() - 0.5) * 0.01,
-      },
-    }));
-  }, [location]);
+  // Rank places for picker
+  const rankedPlaces = rankPlaces(places);
 
-  if (loading) {
+  const handleLike = (place: Place) => {
+    console.log('Liked:', place.name);
+    // TODO: Phase 10 will add saving functionality
+  };
+
+  if (locationLoading) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color="#1F2937" />
@@ -53,10 +29,10 @@ export default function NowScreen() {
     );
   }
 
-  if (error || !location) {
+  if (locationError || !location) {
     return (
       <View style={styles.centered}>
-        <Text style={styles.errorText}>{error || 'Unable to get location'}</Text>
+        <Text style={styles.errorText}>{locationError || 'Unable to get location'}</Text>
         <TouchableOpacity style={styles.retryButton} onPress={requestPermission}>
           <Text style={styles.retryText}>Enable Location</Text>
         </TouchableOpacity>
@@ -72,7 +48,7 @@ export default function NowScreen() {
         showsUserLocation
         showsMyLocationButton
       >
-        {placesWithLocation.map((place) => (
+        {places.map((place) => (
           <PlaceMarker
             key={place.google_place_id}
             place={place}
@@ -80,6 +56,14 @@ export default function NowScreen() {
           />
         ))}
       </MapView>
+      <View style={styles.pickerContainer}>
+        <RestaurantPicker
+          places={rankedPlaces}
+          loading={placesLoading}
+          error={placesError}
+          onLike={handleLike}
+        />
+      </View>
     </View>
   );
 }
@@ -91,6 +75,16 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  pickerContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    pointerEvents: 'box-none',
   },
   centered: {
     flex: 1,
