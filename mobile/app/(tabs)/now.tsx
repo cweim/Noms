@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'rea
 import MapView from 'react-native-maps';
 import { useLocation } from '../../lib/use-location';
 import { usePlaces } from '../../lib/use-places';
+import { useSavedPlaces } from '../../lib/use-saved-places';
 import { rankPlaces } from '../../lib/rank-places';
 import { PlaceMarker, Place } from '../../components/PlaceMarker';
 import { RestaurantPicker } from '../../components/RestaurantPicker';
@@ -11,13 +12,16 @@ export default function NowScreen() {
   const { places, loading: placesLoading, error: placesError } = usePlaces(
     location ? { latitude: location.latitude, longitude: location.longitude } : null
   );
+  const { save } = useSavedPlaces();
 
   // Rank places for picker
   const rankedPlaces = rankPlaces(places);
 
-  const handleLike = (place: Place) => {
-    console.log('Liked:', place.name);
-    // TODO: Phase 10 will add saving functionality
+  const handleLike = async (place: Place) => {
+    const success = await save(place.google_place_id);
+    if (success) {
+      console.log('Saved:', place.name);
+    }
   };
 
   if (locationLoading) {

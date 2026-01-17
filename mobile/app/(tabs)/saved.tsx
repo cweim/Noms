@@ -1,10 +1,73 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
+import { useSavedPlaces, SavedPlace } from '../../lib/use-saved-places';
+import { API_BASE_URL } from '../../lib/api';
+
+function SavedPlaceCard({ place, onUnsave }: { place: SavedPlace; onUnsave: (id: string) => void }) {
+  const photoUrl = place.photo_reference
+    ? `${API_BASE_URL}/api/places/${place.google_place_id}/photo?max_width=400`
+    : null;
+
+  return (
+    <View style={styles.card}>
+      {photoUrl && (
+        <Image source={{ uri: photoUrl }} style={styles.cardImage} />
+      )}
+      <View style={styles.cardContent}>
+        <Text style={styles.cardName} numberOfLines={1}>{place.name}</Text>
+        {place.address && (
+          <Text style={styles.cardAddress} numberOfLines={1}>{place.address}</Text>
+        )}
+      </View>
+      <TouchableOpacity style={styles.unsaveButton} onPress={() => onUnsave(place.id)}>
+        <Text style={styles.unsaveText}>Remove</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 export default function SavedScreen() {
+  const { savedPlaces, loading, error, unsave, refetch } = useSavedPlaces();
+
+  if (loading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color="#1F2937" />
+        <Text style={styles.loadingText}>Loading saved places...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={refetch}>
+          <Text style={styles.retryText}>Try Again</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (savedPlaces.length === 0) {
+    return (
+      <View style={styles.centered}>
+        <Text style={styles.emptyTitle}>No saved places yet</Text>
+        <Text style={styles.emptySubtitle}>Swipe right on restaurants you like to save them here</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Places</Text>
-      <Text style={styles.subtitle}>Saved restaurants will appear here</Text>
+      <Text style={styles.header}>Your Places</Text>
+      <FlatList
+        data={savedPlaces}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <SavedPlaceCard place={item} onUnsave={unsave} />
+        )}
+        contentContainerStyle={styles.list}
+      />
     </View>
   );
 }
@@ -13,18 +76,96 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
+  },
+  header: {
+    fontSize: 28,
+    fontWeight: '900',
+    color: '#1F2937',
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 16,
+  },
+  list: {
+    paddingHorizontal: 20,
+    paddingBottom: 100,
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    marginBottom: 12,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  cardImage: {
+    width: '100%',
+    height: 120,
+  },
+  cardContent: {
+    padding: 12,
+  },
+  cardName: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 4,
+  },
+  cardAddress: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  unsaveButton: {
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  unsaveText: {
+    fontSize: 14,
+    color: '#EF4444',
+    fontWeight: '600',
+  },
+  centered: {
+    flex: 1,
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '900',
+  loadingText: {
+    fontSize: 16,
+    color: '#6B7280',
+    marginTop: 12,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#EF4444',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  retryButton: {
+    backgroundColor: '#1F2937',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  retryText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: '700',
     color: '#1F2937',
     marginBottom: 8,
   },
-  subtitle: {
+  emptySubtitle: {
     fontSize: 16,
     color: '#6B7280',
+    textAlign: 'center',
   },
 });
