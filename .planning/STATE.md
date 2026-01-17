@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-13)
 
 ## Current Position
 
-Phase: 9 of 12 (Restaurant Picker Logic)
-Plan: 2 of 2 complete in current phase
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 09-02-PLAN.md (Restaurant Picker UI)
+Phase: 10 of 12 (Saved Places)
+Plan: 1 of 2 complete in current phase
+Status: In progress
+Last activity: 2026-01-17 — Completed 10-01-PLAN.md (Backend Saves API)
 
-Progress: ████████████ 100% (16/16 plans across all phases)
+Progress: █████████████████░░░ 17/18 plans complete (94%)
 
 ## Performance Metrics
 
@@ -50,6 +50,8 @@ Recent decisions affecting current work:
 |-------|----------|-----------|
 | 4 | Client-side auth with Supabase JS SDK | Backend only validates JWTs, no signup/login endpoints needed |
 | 4 | PyJWT for HS256 validation | Simpler than python-jose for Supabase JWT validation |
+| 10 | NULL list_id for default "Saved" list | No explicit list record needed for MVP |
+| 10 | 409 Conflict for duplicate saves | Prevents same place saved to same list twice |
 
 ### Deferred Issues
 
@@ -66,6 +68,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed Phase 9 (Restaurant Picker Logic)
+Stopped at: Completed 10-01-PLAN.md (Backend Saves API)
 Resume file: None
-Next: Plan Phase 10 (Saved Places)
+Next: Execute 10-02-PLAN.md (Mobile Saved Places UI)
