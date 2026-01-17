@@ -117,7 +117,7 @@ Plans:
 
 Plans:
 - [x] 09-01: API Integration - API client module, usePlaces hook for data fetching
-- [ ] 09-02: Restaurant Picker UI - Card stack, skip/like state, ranking logic
+- [x] 09-02: Restaurant Picker UI - Card stack, skip/like state, ranking logic
 
 ### Phase 10: Saved Places
 **Goal**: Build save functionality with default list and persistent storage
@@ -162,7 +162,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
 | 7. Map View | 2/2 | Complete | 2026-01-16 |
 | 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
-| 9. Restaurant Picker Logic | 1/2 | In progress | - |
+| 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 0/TBD | Not started | - |
 | 11. Photo Journal | 0/TBD | Not started | - |
 | 12. Integration & Polish | 0/TBD | Not started | - |
