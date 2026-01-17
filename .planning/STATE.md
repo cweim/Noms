@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-13)
 
 ## Current Position
 
-Phase: 8 of 12 (Restaurant Cards)
-Plan: 1 of 1 complete in current phase
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 08-01-PLAN.md (Swipeable Restaurant Cards)
+Phase: 9 of 12 (Restaurant Picker Logic)
+Plan: 1 of 2 complete in current phase
+Status: In progress
+Last activity: 2026-01-17 — Completed 09-01-PLAN.md (API Integration)
 
-Progress: ██████████ 100% (14/14 plans across all phases)
+Progress: ███████████░ 94% (15/16 plans across all phases)
 
 ## Performance Metrics
 
@@ -66,6 +66,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed Phase 8 (Restaurant Cards)
+Stopped at: Completed 09-01-PLAN.md (API Integration)
 Resume file: None
-Next: Plan Phase 9 (Restaurant Picker Logic)
+Next: Execute 09-02-PLAN.md (Restaurant Picker UI)
