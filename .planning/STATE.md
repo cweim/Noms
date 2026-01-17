@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Phase 8 — Restaurant Cards
+**Current focus:** Phase 9 — Restaurant Picker Logic
 
 ## Current Position
 
-Phase: 7 of 12 (Map View)
-Plan: 2 of 2 complete in current phase
+Phase: 8 of 12 (Restaurant Cards)
+Plan: 1 of 1 complete in current phase
 Status: Phase complete
-Last activity: 2026-01-16 — Completed 07-02-PLAN.md (Restaurant Markers)
+Last activity: 2026-01-17 — Completed 08-01-PLAN.md (Swipeable Restaurant Cards)
 
-Progress: █████████░ 93% (13/14 plans across all phases)
+Progress: ██████████ 100% (14/14 plans across all phases)
 
 ## Performance Metrics
 
@@ -65,7 +65,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16
-Stopped at: Completed Phase 7 (Map View)
+Last session: 2026-01-17
+Stopped at: Completed Phase 8 (Restaurant Cards)
 Resume file: None
-Next: Plan Phase 8 (Restaurant Cards)
+Next: Plan Phase 9 (Restaurant Picker Logic)

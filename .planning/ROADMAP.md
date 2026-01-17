@@ -23,7 +23,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: Google Places Integration** - Connect to Google Places API, implement search and details endpoints
 - [x] **Phase 6: Mobile App Foundation** - React Native/Expo setup, navigation structure, bottom tabs
 - [x] **Phase 7: Map View** - Interactive map with location services and place pins
-- [ ] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
+- [x] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
 - [ ] **Phase 9: Restaurant Picker Logic** - On-demand fetching, preference-based ranking, skip/like actions
 - [ ] **Phase 10: Saved Places** - Save functionality, default list, persistent storage
 - [ ] **Phase 11: Photo Journal** - Photo capture, place detection, optional rating, journal entries
@@ -107,7 +107,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 08-01: Swipeable Restaurant Cards - Gesture handling, card component, skip/like actions
+- [x] 08-01: Swipeable Restaurant Cards - Gesture handling, card component, skip/like actions
 
 ### Phase 9: Restaurant Picker Logic
 **Goal**: Implement on-demand fetching, preference-based ranking, and skip/like actions
@@ -160,7 +160,7 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
 | 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
 | 7. Map View | 2/2 | Complete | 2026-01-16 |
-| 8. Restaurant Cards | 0/TBD | Not started | - |
+| 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
 | 9. Restaurant Picker Logic | 0/TBD | Not started | - |
 | 10. Saved Places | 0/TBD | Not started | - |
 | 11. Photo Journal | 0/TBD | Not started | - |
