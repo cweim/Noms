@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Milestone 1 Complete!
+**Current focus:** Phase 13 — Bug Fix & Backend Prep (v1.1 Now Flow Redesign)
 
 ## Current Position
 
-Phase: 12 of 12 (Integration & Polish)
-Plan: 3 of 3 complete in current phase
-Status: Complete
-Last activity: 2026-01-18 — Completed 12-03-PLAN.md (Final Polish)
+Phase: 13 of 17 (Bug Fix & Backend Prep)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-18 — Milestone v1.1 created
 
-Progress: ████████████████████████ 24/24 plans complete in planned phases
+Progress: ████████████████████████░░░░░░ 24/? plans complete (v1.1 phases TBD)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 24
 - Average duration: ~8 mins per plan
 - Total execution time: ~2 hours
 
@@ -36,7 +36,7 @@ Progress: ███████████████████████�
 | 7. Map View | 2 | ~13m | ~6.5m |
 
 **Recent Trend:**
-- Last 5 plans: 06-01 ✓, 07-01 ✓, 07-02 ✓
+- v1.0 MVP shipped: 24/24 plans complete
 - Trend: Accelerating velocity, maintaining quality
 
 ## Accumulated Context
@@ -57,7 +57,7 @@ Recent decisions affecting current work:
 
 ### Deferred Issues
 
-- **Saved places images not displaying** - photo_reference may not be properly cached when places are saved (found in 12-02 verification)
+- **Saved places images not displaying** - photo_reference may not be properly cached when places are saved (found in 12-02 verification) → **Addressed in Phase 13**
 
 ### Pending Todos
 
@@ -67,9 +67,13 @@ None yet.
 
 None yet.
 
+### Roadmap Evolution
+
+- Milestone v1.1 created: Now Flow Redesign, 5 phases (Phase 13-17)
+
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 12-03-PLAN.md (Final Polish)
+Stopped at: Milestone v1.1 initialization
 Resume file: None
-Next: Milestone 1 complete! Consider next milestone or launch.
+Next: Plan Phase 13 (/gsd:plan-phase 13)

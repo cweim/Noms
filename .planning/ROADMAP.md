@@ -8,6 +8,11 @@ Building a map-first food discovery app from foundation to launch. Starting with
 
 None
 
+## Milestones
+
+- ✅ **v1.0 MVP** - Phases 1-12 (shipped 2026-01-18)
+- 🚧 **v1.1 Now Flow Redesign** - Phases 13-17 (in progress)
+
 ## Phases
 
 **Phase Numbering:**
@@ -28,6 +33,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 10: Saved Places** - Save functionality, default list, persistent storage
 - [x] **Phase 11: Photo Journal** - Photo capture, place detection, optional rating, journal entries
 - [x] **Phase 12: Integration & Polish** - End-to-end testing, UI polish, cross-platform verification
+- [ ] **Phase 13: Bug Fix & Backend Prep** - Fix saved images, prepare details endpoint
+- [ ] **Phase 14: Now Page UX Redesign** - Bottom card layout, map highlighting current restaurant
+- [ ] **Phase 15: Now Temp List System** - Swipe up gesture, temp list storage, review phase
+- [ ] **Phase 16: Place Details Screen** - Full info, photo gallery, Google reviews
+- [ ] **Phase 17: Integration & Polish** - Connect all flows, cross-platform testing
 
 ## Phase Details
 
@@ -152,22 +162,77 @@ Plans:
 - [x] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
 - [x] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
 
+### 🚧 v1.1 Now Flow Redesign (In Progress)
+
+**Milestone Goal:** Redesign the core picker UX with bottom cards, map integration, two-list system (Save for later vs Consider now), and place details screen
+
+#### Phase 13: Bug Fix & Backend Prep
+**Goal**: Fix saved places images bug and prepare backend for details endpoint
+**Depends on**: Phase 12 (previous milestone complete)
+**Research**: Unlikely (internal bug fix, existing patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 13-01: TBD (run /gsd:plan-phase 13 to break down)
+
+#### Phase 14: Now Page UX Redesign
+**Goal**: Transform picker to bottom card layout with map highlighting current restaurant
+**Depends on**: Phase 13
+**Research**: Unlikely (existing map and gesture libraries)
+**Plans**: TBD
+
+Plans:
+- [ ] 14-01: TBD
+
+#### Phase 15: Now Temp List System
+**Goal**: Implement swipe up gesture for "Now" list, temp list storage, and review phase
+**Depends on**: Phase 14
+**Research**: Unlikely (internal state management, existing patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 15-01: TBD
+
+#### Phase 16: Place Details Screen
+**Goal**: Full restaurant details with name, address, phone, hours, photo gallery, and Google reviews
+**Depends on**: Phase 13
+**Research**: Likely (Google Places API detail fields)
+**Research topics**: Google Places API fields for hours, reviews, multiple photos
+**Plans**: TBD
+
+Plans:
+- [ ] 16-01: TBD
+
+#### Phase 17: Integration & Polish
+**Goal**: Connect all flows, cross-platform testing, final polish
+**Depends on**: Phase 14, Phase 15, Phase 16
+**Research**: Unlikely (internal testing)
+**Plans**: TBD
+
+Plans:
+- [ ] 17-01: TBD
+
 ## Progress
 
 **Execution Order:**
-Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12)
+Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Project Foundation | 2/2 | Complete | 2026-01-13 |
-| 2. Database Schema | 2/2 | Complete | 2026-01-13 |
-| 3. Backend API Foundation | 2/2 | Complete | 2026-01-14 |
-| 4. Authentication | 1/1 | Complete | 2026-01-14 |
-| 5. Google Places Integration | 3/3 | Complete | 2026-01-15 |
-| 6. Mobile App Foundation | 1/1 | Complete | 2026-01-15 |
-| 7. Map View | 2/2 | Complete | 2026-01-16 |
-| 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
-| 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
-| 10. Saved Places | 2/2 | Complete | 2026-01-17 |
-| 11. Photo Journal | 3/3 | Complete | 2026-01-18 |
-| 12. Integration & Polish | 3/3 | Complete | 2026-01-18 |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Project Foundation | v1.0 | 2/2 | Complete | 2026-01-13 |
+| 2. Database Schema | v1.0 | 2/2 | Complete | 2026-01-13 |
+| 3. Backend API Foundation | v1.0 | 2/2 | Complete | 2026-01-14 |
+| 4. Authentication | v1.0 | 1/1 | Complete | 2026-01-14 |
+| 5. Google Places Integration | v1.0 | 3/3 | Complete | 2026-01-15 |
+| 6. Mobile App Foundation | v1.0 | 1/1 | Complete | 2026-01-15 |
+| 7. Map View | v1.0 | 2/2 | Complete | 2026-01-16 |
+| 8. Restaurant Cards | v1.0 | 1/1 | Complete | 2026-01-17 |
+| 9. Restaurant Picker Logic | v1.0 | 2/2 | Complete | 2026-01-17 |
+| 10. Saved Places | v1.0 | 2/2 | Complete | 2026-01-17 |
+| 11. Photo Journal | v1.0 | 3/3 | Complete | 2026-01-18 |
+| 12. Integration & Polish | v1.0 | 3/3 | Complete | 2026-01-18 |
+| 13. Bug Fix & Backend Prep | v1.1 | 0/? | Not started | - |
+| 14. Now Page UX Redesign | v1.1 | 0/? | Not started | - |
+| 15. Now Temp List System | v1.1 | 0/? | Not started | - |
+| 16. Place Details Screen | v1.1 | 0/? | Not started | - |
+| 17. Integration & Polish | v1.1 | 0/? | Not started | - |
