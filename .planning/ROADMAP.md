@@ -148,7 +148,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 12-01: Auth UI - Login/signup screen with Supabase Auth
+- [x] 12-01: Auth UI - Login/signup screen with Supabase Auth
 - [ ] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
 - [ ] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
 
@@ -170,4 +170,4 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 2/2 | Complete | 2026-01-17 |
 | 11. Photo Journal | 3/3 | Complete | 2026-01-18 |
-| 12. Integration & Polish | 0/TBD | Not started | - |
+| 12. Integration & Polish | 1/3 | In progress | - |
