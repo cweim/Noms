@@ -167,5 +167,5 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 2/2 | Complete | 2026-01-17 |
-| 11. Photo Journal | 0/3 | Not started | - |
+| 11. Photo Journal | 1/3 | In progress | - |
 | 12. Integration & Polish | 0/TBD | Not started | - |
