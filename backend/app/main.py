@@ -137,7 +137,7 @@ async def startup_event():
 
 
 # API Routes
-from app.routers import users, places, saves
+from app.routers import users, places, saves, journal
 
 # Phase 4: Users router (protected endpoints)
 app.include_router(users.router, prefix="/api/users", tags=["users"])
@@ -150,6 +150,9 @@ app.include_router(places.router, prefix="/api/places", tags=["places"])
 
 # Phase 10: Saved Places
 app.include_router(saves.router, prefix="/api/saves", tags=["saves"])
+
+# Phase 11: Photo Journal
+app.include_router(journal.router, prefix="/api/journal", tags=["journal"])
 
 
 @app.get("/")
