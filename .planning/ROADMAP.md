@@ -144,11 +144,13 @@ Plans:
 ### Phase 12: Integration & Polish
 **Goal**: End-to-end testing, UI polish, and cross-platform verification
 **Depends on**: Phase 10, Phase 11
-**Research**: Unlikely (internal testing and polish)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - internal testing and polish)
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD during phase planning
+- [ ] 12-01: Auth UI - Login/signup screen with Supabase Auth
+- [ ] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
+- [ ] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
 
 ## Progress
 

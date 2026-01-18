@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Phase 11 — Photo Journal
+**Current focus:** Phase 12 — Integration & Polish
 
 ## Current Position
 
