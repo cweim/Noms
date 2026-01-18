@@ -7,7 +7,7 @@ from fastapi.responses import StreamingResponse
 import io
 
 from app.services.places import get_places_service
-from app.schemas.places import PlaceResult, PlaceSearchResponse, PlaceDetailResponse
+from app.schemas.places import PlaceResult, PlaceSearchResponse, PlaceDetailResponse, PlaceDetails, OpeningHours, PlacePhoto
 from app.auth import get_current_user, get_jwks_client
 from app.db import get_supabase
 from app.errors import NotFoundError, AuthenticationError
@@ -104,6 +104,69 @@ async def get_place_details(
         website=details.get("website"),
         phone_number=details.get("formatted_phone_number"),
         hours=details.get("opening_hours", {}).get("weekday_text")
+    )
+
+
+@router.get("/{place_id}/details", response_model=PlaceDetails)
+async def get_place_full_details(
+    place_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """
+    Get comprehensive details for a place.
+
+    Returns full info including hours, multiple photos, rating.
+    Used for Phase 16 Place Details Screen.
+
+    place_id must be a Google Place ID (starts with "ChIJ...").
+    """
+    service = get_places_service()
+
+    # Resolve to Google place_id if needed
+    if not place_id.startswith("ChIJ"):
+        supabase = get_supabase()
+        result = supabase.table("places").select("google_place_id").eq("id", place_id).execute()
+        if not result.data:
+            raise NotFoundError(message="Place not found", detail={"place_id": place_id})
+        place_id = result.data[0]["google_place_id"]
+
+    # Always fetch fresh from API to get full details
+    details = service.get_place_details(place_id)
+    if not details:
+        raise NotFoundError(message="Place not found", detail={"place_id": place_id})
+
+    # Map opening hours
+    opening_hours = None
+    if details.get("opening_hours"):
+        opening_hours = OpeningHours(
+            open_now=details["opening_hours"].get("open_now"),
+            weekday_text=details["opening_hours"].get("weekday_text")
+        )
+
+    # Map photos (limit to 5)
+    photos = []
+    for photo in details.get("photos", [])[:5]:
+        photos.append(PlacePhoto(
+            photo_reference=photo.get("photo_reference"),
+            height=photo.get("height"),
+            width=photo.get("width")
+        ))
+
+    geometry = details.get("geometry", {}).get("location", {})
+
+    return PlaceDetails(
+        place_id=details.get("place_id") or place_id,
+        name=details.get("name"),
+        address=details.get("formatted_address"),
+        phone=details.get("formatted_phone_number"),
+        website=details.get("website"),
+        rating=details.get("rating"),
+        price_level=details.get("price_level"),
+        opening_hours=opening_hours,
+        photos=photos,
+        types=details.get("types", []),
+        lat=geometry.get("lat"),
+        lng=geometry.get("lng")
     )
 
 

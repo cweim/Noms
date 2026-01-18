@@ -7,6 +7,7 @@ from app.schemas.journal import (
     JournalEntriesResponse,
     UpdateJournalEntryRequest,
 )
+from app.schemas.places import OpeningHours, PlacePhoto, PlaceDetails
 
 __all__ = [
     "SavePlaceRequest",
@@ -16,4 +17,7 @@ __all__ = [
     "JournalEntry",
     "JournalEntriesResponse",
     "UpdateJournalEntryRequest",
+    "OpeningHours",
+    "PlacePhoto",
+    "PlaceDetails",
 ]

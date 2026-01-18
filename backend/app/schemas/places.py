@@ -61,3 +61,25 @@ class PlaceDetailResponse(BaseModel):
     website: Optional[str] = None
     phone_number: Optional[str] = None
     hours: Optional[list[str]] = None  # Opening hours text
+
+
+class OpeningHours(BaseModel):
+    """Opening hours with open_now status and weekday text"""
+    open_now: Optional[bool] = None
+    weekday_text: Optional[list[str]] = None
+
+
+class PlaceDetails(BaseModel):
+    """Comprehensive place details for Phase 16 Place Details Screen"""
+    place_id: str
+    name: str
+    address: Optional[str] = None
+    phone: Optional[str] = None
+    website: Optional[str] = None
+    rating: Optional[float] = None
+    price_level: Optional[int] = None
+    opening_hours: Optional[OpeningHours] = None
+    photos: list[PlacePhoto] = []
+    types: list[str] = []
+    lat: Optional[float] = None
+    lng: Optional[float] = None
