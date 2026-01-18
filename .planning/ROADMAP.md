@@ -179,11 +179,11 @@ Plans:
 #### Phase 14: Now Page UX Redesign
 **Goal**: Transform picker to bottom card layout with map highlighting current restaurant
 **Depends on**: Phase 13
-**Research**: Unlikely (existing map and gesture libraries)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - existing patterns)
+**Plans**: 1 plan
 
 Plans:
-- [ ] 14-01: TBD
+- [ ] 14-01: Bottom Card Layout - Create compact bottom card, map centering, selected marker
 
 #### Phase 15: Now Temp List System
 **Goal**: Implement swipe up gesture for "Now" list, temp list storage, and review phase
