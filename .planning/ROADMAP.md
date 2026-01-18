@@ -170,10 +170,11 @@ Plans:
 **Goal**: Fix saved places images bug and prepare backend for details endpoint
 **Depends on**: Phase 12 (previous milestone complete)
 **Research**: Unlikely (internal bug fix, existing patterns)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 13-01: TBD (run /gsd:plan-phase 13 to break down)
+- [ ] 13-01: Fix Saved Places Images Bug - Debug and fix photo_reference caching
+- [ ] 13-02: Backend Details Endpoint Prep - PlaceDetails schema and endpoint
 
 #### Phase 14: Now Page UX Redesign
 **Goal**: Transform picker to bottom card layout with map highlighting current restaurant
@@ -231,7 +232,7 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 10. Saved Places | v1.0 | 2/2 | Complete | 2026-01-17 |
 | 11. Photo Journal | v1.0 | 3/3 | Complete | 2026-01-18 |
 | 12. Integration & Polish | v1.0 | 3/3 | Complete | 2026-01-18 |
-| 13. Bug Fix & Backend Prep | v1.1 | 0/? | Not started | - |
+| 13. Bug Fix & Backend Prep | v1.1 | 0/2 | Not started | - |
 | 14. Now Page UX Redesign | v1.1 | 0/? | Not started | - |
 | 15. Now Temp List System | v1.1 | 0/? | Not started | - |
 | 16. Place Details Screen | v1.1 | 0/? | Not started | - |
