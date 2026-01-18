@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  RefreshControl,
 } from 'react-native';
 import { useJournal, JournalEntry } from '../../lib/use-journal';
 import { AddJournalEntry } from '../../components/AddJournalEntry';
@@ -60,6 +61,13 @@ function JournalEntryCard({
 export default function JournalScreen() {
   const { entries, loading, error, create, remove, refetch } = useJournal();
   const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   if (loading) {
     return (
@@ -100,6 +108,13 @@ export default function JournalScreen() {
             <JournalEntryCard entry={item} onDelete={remove} />
           )}
           contentContainerStyle={styles.list}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#1F2937"
+            />
+          }
         />
       )}
 

@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
+import { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Image, RefreshControl } from 'react-native';
 import { useSavedPlaces, SavedPlace } from '../../lib/use-saved-places';
 import { API_BASE_URL } from '../../lib/api';
 
@@ -27,6 +28,13 @@ function SavedPlaceCard({ place, onUnsave }: { place: SavedPlace; onUnsave: (id:
 
 export default function SavedScreen() {
   const { savedPlaces, loading, error, unsave, refetch } = useSavedPlaces();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
 
   if (loading) {
     return (
@@ -67,6 +75,13 @@ export default function SavedScreen() {
           <SavedPlaceCard place={item} onUnsave={unsave} />
         )}
         contentContainerStyle={styles.list}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#1F2937"
+          />
+        }
       />
     </View>
   );

@@ -17,7 +17,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow Noms to use your location to find nearby restaurants."
-      }
+      },
+      "bundleIdentifier": "com.anonymous.noms"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,8 +29,11 @@
       "predictiveBackGestureEnabled": false,
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
-      ]
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.anonymous.noms"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -27,7 +27,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: Restaurant Picker Logic** - On-demand fetching, preference-based ranking, skip/like actions
 - [x] **Phase 10: Saved Places** - Save functionality, default list, persistent storage
 - [x] **Phase 11: Photo Journal** - Photo capture, place detection, optional rating, journal entries
-- [ ] **Phase 12: Integration & Polish** - End-to-end testing, UI polish, cross-platform verification
+- [x] **Phase 12: Integration & Polish** - End-to-end testing, UI polish, cross-platform verification
 
 ## Phase Details
 
@@ -149,8 +149,8 @@ Plans:
 
 Plans:
 - [x] 12-01: Auth UI - Login/signup screen with Supabase Auth
-- [ ] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
-- [ ] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
+- [x] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
+- [x] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
 
 ## Progress
 
@@ -170,4 +170,4 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 2/2 | Complete | 2026-01-17 |
 | 11. Photo Journal | 3/3 | Complete | 2026-01-18 |
-| 12. Integration & Polish | 1/3 | In progress | - |
+| 12. Integration & Polish | 3/3 | Complete | 2026-01-18 |

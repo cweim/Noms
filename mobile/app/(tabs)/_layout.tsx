@@ -1,5 +1,32 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { useAuth } from '../../lib/auth-context';
+
+function SignOutButton() {
+  const { signOut } = useAuth();
+
+  const handleSignOut = () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: signOut,
+        },
+      ]
+    );
+  };
+
+  return (
+    <TouchableOpacity onPress={handleSignOut} style={styles.signOutButton}>
+      <Text style={styles.signOutText}>Sign Out</Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function TabLayout() {
   return (
@@ -18,6 +45,7 @@ export default function TabLayout() {
           fontWeight: '900',
           color: '#1F2937',
         },
+        headerRight: () => <SignOutButton />,
       }}
     >
       <Tabs.Screen
@@ -50,3 +78,15 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  signOutButton: {
+    marginRight: 16,
+    padding: 8,
+  },
+  signOutText: {
+    color: '#EF4444',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+});

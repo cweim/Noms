@@ -160,12 +160,15 @@ class GooglePlacesService:
             List of place results from Google Places API
         """
         try:
+            import logging
+            logging.info(f"Searching places: query={query}, lat={lat}, lng={lng}, radius={radius}")
             response = self.client.places(
                 query=query,
                 location=(lat, lng),
                 radius=radius,
                 type="restaurant"
             )
+            logging.info(f"Response status: {response.get('status')}")
 
             status = response.get("status", "UNKNOWN")
 
@@ -198,11 +201,15 @@ class GooglePlacesService:
             return results
 
         except ApiError as e:
+            import logging
+            logging.error(f"Google Places API error in search: {e}")
             raise DatabaseError(
                 message="Google Places API error",
                 detail={"error": str(e)}
             )
         except (HTTPError, Timeout, TransportError) as e:
+            import logging
+            logging.error(f"Network error in search: {e}")
             raise DatabaseError(
                 message="Network error contacting Google Places API",
                 detail={"error": str(e)}

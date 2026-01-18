@@ -76,7 +76,7 @@ export async function uploadPhoto(uri: string, userId: string): Promise<PhotoUpl
 
     // Upload to Supabase Storage
     const { data, error } = await supabase.storage
-      .from('journal-photos')
+      .from('Noms')
       .upload(filename, arrayBuffer, {
         contentType: `image/${extension}`,
         upsert: false,
@@ -89,7 +89,7 @@ export async function uploadPhoto(uri: string, userId: string): Promise<PhotoUpl
 
     // Get public URL
     const { data: urlData } = supabase.storage
-      .from('journal-photos')
+      .from('Noms')
       .getPublicUrl(data.path);
 
     return { success: true, url: urlData.publicUrl };
@@ -109,12 +109,12 @@ export async function uploadPhoto(uri: string, userId: string): Promise<PhotoUpl
 export async function deletePhoto(url: string): Promise<boolean> {
   try {
     // Extract path from URL
-    const urlParts = url.split('/journal-photos/');
+    const urlParts = url.split('/Noms/');
     if (urlParts.length < 2) return false;
 
     const path = urlParts[1];
     const { error } = await supabase.storage
-      .from('journal-photos')
+      .from('Noms')
       .remove([path]);
 
     return !error;

@@ -1,18 +1,16 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  runOnJS,
-  interpolate,
-  Extrapolation,
-} from 'react-native-reanimated';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { useRef } from 'react';
+import {
+  StyleSheet,
+  Dimensions,
+  Animated,
+  PanResponder,
+  View,
+} from 'react-native';
 import { Place } from './PlaceMarker';
 import { RestaurantCard } from './RestaurantCard';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.3; // 30% of screen width to trigger action
+const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
 
 interface SwipeableCardProps {
   place: Place;
@@ -22,84 +20,83 @@ interface SwipeableCardProps {
 }
 
 export function SwipeableCard({ place, photoUrl, onSkip, onLike }: SwipeableCardProps) {
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
+  const pan = useRef(new Animated.ValueXY()).current;
 
-  const handleSkip = () => {
-    onSkip(place);
-  };
-
-  const handleLike = () => {
-    onLike(place);
-  };
-
-  const panGesture = Gesture.Pan()
-    .onUpdate((event) => {
-      translateX.value = event.translationX;
-      // Slight vertical movement for natural feel
-      translateY.value = event.translationY * 0.3;
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) => {
+        return Math.abs(gesture.dx) > 5;
+      },
+      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
+        useNativeDriver: false,
+      }),
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dx > SWIPE_THRESHOLD) {
+          // Swiped right - Like
+          Animated.timing(pan, {
+            toValue: { x: SCREEN_WIDTH * 1.5, y: gesture.dy },
+            duration: 200,
+            useNativeDriver: false,
+          }).start(() => {
+            onLike(place);
+            pan.setValue({ x: 0, y: 0 });
+          });
+        } else if (gesture.dx < -SWIPE_THRESHOLD) {
+          // Swiped left - Skip
+          Animated.timing(pan, {
+            toValue: { x: -SCREEN_WIDTH * 1.5, y: gesture.dy },
+            duration: 200,
+            useNativeDriver: false,
+          }).start(() => {
+            onSkip(place);
+            pan.setValue({ x: 0, y: 0 });
+          });
+        } else {
+          // Return to center
+          Animated.spring(pan, {
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: false,
+          }).start();
+        }
+      },
     })
-    .onEnd(() => {
-      if (translateX.value > SWIPE_THRESHOLD) {
-        // Swiped right - Like
-        translateX.value = withSpring(SCREEN_WIDTH * 1.5);
-        runOnJS(handleLike)();
-      } else if (translateX.value < -SWIPE_THRESHOLD) {
-        // Swiped left - Skip
-        translateX.value = withSpring(-SCREEN_WIDTH * 1.5);
-        runOnJS(handleSkip)();
-      } else {
-        // Return to center
-        translateX.value = withSpring(0);
-        translateY.value = withSpring(0);
-      }
-    });
+  ).current;
 
-  const animatedStyle = useAnimatedStyle(() => {
-    const rotate = interpolate(
-      translateX.value,
-      [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
-      [-15, 0, 15],
-      Extrapolation.CLAMP
-    );
-
-    return {
-      transform: [
-        { translateX: translateX.value },
-        { translateY: translateY.value },
-        { rotate: `${rotate}deg` },
-      ],
-    };
+  const rotate = pan.x.interpolate({
+    inputRange: [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
+    outputRange: ['-15deg', '0deg', '15deg'],
+    extrapolate: 'clamp',
   });
 
-  // Opacity for swipe indicators based on swipe direction
-  const likeOpacityStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      translateX.value,
-      [0, SWIPE_THRESHOLD],
-      [0, 1],
-      Extrapolation.CLAMP
-    ),
-  }));
+  const likeOpacity = pan.x.interpolate({
+    inputRange: [0, SWIPE_THRESHOLD],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
 
-  const skipOpacityStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      translateX.value,
-      [-SWIPE_THRESHOLD, 0],
-      [1, 0],
-      Extrapolation.CLAMP
-    ),
-  }));
+  const skipOpacity = pan.x.interpolate({
+    inputRange: [-SWIPE_THRESHOLD, 0],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const animatedStyle = {
+    transform: [
+      { translateX: pan.x },
+      { translateY: pan.y },
+      { rotate },
+    ],
+  };
 
   return (
-    <GestureDetector gesture={panGesture}>
-      <Animated.View style={[styles.container, animatedStyle]}>
-        <RestaurantCard place={place} photoUrl={photoUrl} />
-        {/* Overlay indicators that appear during swipe */}
-        <Animated.View style={[styles.likeOverlay, likeOpacityStyle]} />
-        <Animated.View style={[styles.skipOverlay, skipOpacityStyle]} />
-      </Animated.View>
-    </GestureDetector>
+    <Animated.View
+      style={[styles.container, animatedStyle]}
+      {...panResponder.panHandlers}
+    >
+      <RestaurantCard place={place} photoUrl={photoUrl} />
+      <Animated.View style={[styles.likeOverlay, { opacity: likeOpacity }]} />
+      <Animated.View style={[styles.skipOverlay, { opacity: skipOpacity }]} />
+    </Animated.View>
   );
 }
 
