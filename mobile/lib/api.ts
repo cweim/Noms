@@ -192,3 +192,14 @@ export async function deleteJournalEntry(entryId: string): Promise<void> {
     throw new Error('Failed to delete journal entry');
   }
 }
+
+// Get current auth token for use in image URLs
+export async function getAuthToken(): Promise<string | null> {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session?.access_token || null;
+}
+
+// Generate authenticated photo URL
+export function getPhotoUrl(googlePlaceId: string, token: string, maxWidth: number = 400): string {
+  return `${API_BASE_URL}/api/places/${googlePlaceId}/photo?max_width=${maxWidth}&token=${encodeURIComponent(token)}`;
+}

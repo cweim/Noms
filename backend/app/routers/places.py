@@ -8,9 +8,10 @@ import io
 
 from app.services.places import get_places_service
 from app.schemas.places import PlaceResult, PlaceSearchResponse, PlaceDetailResponse
-from app.auth import get_current_user
+from app.auth import get_current_user, get_jwks_client
 from app.db import get_supabase
-from app.errors import NotFoundError
+from app.errors import NotFoundError, AuthenticationError
+import jwt
 
 router = APIRouter()
 
@@ -110,7 +111,7 @@ async def get_place_details(
 async def get_place_photo(
     place_id: str,
     max_width: int = Query(default=400, ge=100, le=1600),
-    user: dict = Depends(get_current_user)
+    token: str = Query(default=None, description="JWT token for auth (alternative to header)"),
 ):
     """
     Get a photo for a place.
@@ -118,8 +119,29 @@ async def get_place_photo(
     Returns the image directly (not JSON).
     Mobile client can use this URL as image source.
 
-    Requires authentication.
+    Accepts auth via query param ?token= for use in Image components.
     """
+    # Validate token from query param
+    if not token:
+        raise AuthenticationError(
+            message="Authentication required",
+            detail={"hint": "Include ?token=<jwt> query parameter"}
+        )
+
+    try:
+        jwks_client = get_jwks_client()
+        signing_key = jwks_client.get_signing_key_from_jwt(token)
+        jwt.decode(
+            token,
+            signing_key.key,
+            algorithms=["ES256", "RS256", "HS256"],
+            audience="authenticated",
+        )
+    except jwt.ExpiredSignatureError:
+        raise AuthenticationError(message="Token has expired")
+    except jwt.InvalidTokenError as e:
+        raise AuthenticationError(message="Invalid token", detail={"error": str(e)})
+
     service = get_places_service()
     supabase = get_supabase()
 

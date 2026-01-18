@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Image, RefreshControl } from 'react-native';
 import { useSavedPlaces, SavedPlace } from '../../lib/use-saved-places';
-import { API_BASE_URL } from '../../lib/api';
+import { getAuthToken, getPhotoUrl } from '../../lib/api';
 
-function SavedPlaceCard({ place, onUnsave }: { place: SavedPlace; onUnsave: (id: string) => void }) {
-  const photoUrl = place.photo_reference
-    ? `${API_BASE_URL}/api/places/${place.google_place_id}/photo?max_width=400`
+function SavedPlaceCard({ place, onUnsave, token }: { place: SavedPlace; onUnsave: (id: string) => void; token: string | null }) {
+  const photoUrl = place.photo_reference && token
+    ? getPhotoUrl(place.google_place_id, token)
     : null;
 
   return (
@@ -29,8 +29,15 @@ function SavedPlaceCard({ place, onUnsave }: { place: SavedPlace; onUnsave: (id:
 export default function SavedScreen() {
   const { savedPlaces, loading, error, unsave, refetch } = useSavedPlaces();
   const [refreshing, setRefreshing] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    getAuthToken().then(setToken);
+  }, []);
 
   const onRefresh = async () => {
+    // Refresh token too in case it changed
+    getAuthToken().then(setToken);
     setRefreshing(true);
     await refetch();
     setRefreshing(false);
@@ -72,7 +79,7 @@ export default function SavedScreen() {
         data={savedPlaces}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <SavedPlaceCard place={item} onUnsave={unsave} />
+          <SavedPlaceCard place={item} onUnsave={unsave} token={token} />
         )}
         contentContainerStyle={styles.list}
         refreshControl={
