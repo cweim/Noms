@@ -126,3 +126,69 @@ export async function unsavePlace(saveId: string): Promise<void> {
     throw new Error('Failed to unsave place');
   }
 }
+
+// Journal types
+export interface JournalEntry {
+  id: string;
+  photo_url: string;
+  place_id: string | null;
+  google_place_id: string | null;
+  place_name: string | null;
+  rating: number | null;
+  note: string | null;
+  eaten_at: string;
+  created_at: string;
+}
+
+export interface JournalEntriesResponse {
+  entries: JournalEntry[];
+  count: number;
+}
+
+export interface CreateJournalEntryRequest {
+  photo_url: string;
+  google_place_id?: string;
+  rating?: number;
+  note?: string;
+  eaten_at?: string;
+}
+
+export async function createJournalEntry(
+  data: CreateJournalEntryRequest
+): Promise<JournalEntry> {
+  const response = await fetch(`${API_BASE_URL}/api/journal/`, {
+    method: 'POST',
+    headers: await getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to create journal entry');
+  }
+
+  return response.json();
+}
+
+export async function getJournalEntries(): Promise<JournalEntriesResponse> {
+  const response = await fetch(`${API_BASE_URL}/api/journal/`, {
+    headers: await getAuthHeaders(),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch journal entries');
+  }
+
+  return response.json();
+}
+
+export async function deleteJournalEntry(entryId: string): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/api/journal/${entryId}`, {
+    method: 'DELETE',
+    headers: await getAuthHeaders(),
+  });
+
+  if (!response.ok && response.status !== 404) {
+    throw new Error('Failed to delete journal entry');
+  }
+}
