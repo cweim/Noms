@@ -26,7 +26,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Restaurant Cards** - Swipeable card UI with restaurant details and actions
 - [x] **Phase 9: Restaurant Picker Logic** - On-demand fetching, preference-based ranking, skip/like actions
 - [x] **Phase 10: Saved Places** - Save functionality, default list, persistent storage
-- [ ] **Phase 11: Photo Journal** - Photo capture, place detection, optional rating, journal entries
+- [x] **Phase 11: Photo Journal** - Photo capture, place detection, optional rating, journal entries
 - [ ] **Phase 12: Integration & Polish** - End-to-end testing, UI polish, cross-platform verification
 
 ## Phase Details
@@ -167,5 +167,5 @@ Numeric sort (1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 �
 | 8. Restaurant Cards | 1/1 | Complete | 2026-01-17 |
 | 9. Restaurant Picker Logic | 2/2 | Complete | 2026-01-17 |
 | 10. Saved Places | 2/2 | Complete | 2026-01-17 |
-| 11. Photo Journal | 2/3 | In progress | - |
+| 11. Photo Journal | 3/3 | Complete | 2026-01-18 |
 | 12. Integration & Polish | 0/TBD | Not started | - |
