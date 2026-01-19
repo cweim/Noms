@@ -203,3 +203,46 @@ export async function getAuthToken(): Promise<string | null> {
 export function getPhotoUrl(googlePlaceId: string, token: string, maxWidth: number = 400): string {
   return `${API_BASE_URL}/api/places/${googlePlaceId}/photo?max_width=${maxWidth}&token=${encodeURIComponent(token)}`;
 }
+
+// Generate photo URL from photo_reference (for gallery photos)
+export function getPhotoUrlFromReference(photoReference: string, token: string, maxWidth: number = 800): string {
+  return `${API_BASE_URL}/api/places/photo?photo_reference=${encodeURIComponent(photoReference)}&max_width=${maxWidth}&token=${encodeURIComponent(token)}`;
+}
+
+// Place details types
+export interface PlaceDetails {
+  place_id: string;
+  name: string;
+  address: string | null;
+  phone: string | null;
+  website: string | null;
+  rating: number | null;
+  price_level: number | null;
+  opening_hours: {
+    open_now: boolean | null;
+    weekday_text: string[] | null;
+  } | null;
+  photos: Array<{
+    photo_reference: string;
+    height: number | null;
+    width: number | null;
+  }>;
+  types: string[];
+  lat: number | null;
+  lng: number | null;
+}
+
+// Get comprehensive place details
+export async function getPlaceDetails(googlePlaceId: string): Promise<PlaceDetails> {
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/api/places/${googlePlaceId}/details`, {
+    method: 'GET',
+    headers,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch place details');
+  }
+
+  return response.json();
+}
