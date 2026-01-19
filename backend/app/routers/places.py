@@ -170,6 +170,50 @@ async def get_place_full_details(
     )
 
 
+@router.get("/photo")
+async def get_photo_by_reference(
+    photo_reference: str = Query(..., description="Google photo reference"),
+    max_width: int = Query(default=800, ge=100, le=1600),
+    token: str = Query(default=None, description="JWT token for auth"),
+):
+    """
+    Get a photo by its photo_reference.
+
+    Used for gallery photos where we already have the reference from details endpoint.
+    Returns the image directly (not JSON).
+    """
+    # Validate token
+    if not token:
+        raise AuthenticationError(
+            message="Authentication required",
+            detail={"hint": "Include ?token=<jwt> query parameter"}
+        )
+
+    try:
+        jwks_client = get_jwks_client()
+        signing_key = jwks_client.get_signing_key_from_jwt(token)
+        jwt.decode(
+            token,
+            signing_key.key,
+            algorithms=["ES256", "RS256", "HS256"],
+            audience="authenticated",
+        )
+    except jwt.ExpiredSignatureError:
+        raise AuthenticationError(message="Token has expired")
+    except jwt.InvalidTokenError as e:
+        raise AuthenticationError(message="Invalid token", detail={"error": str(e)})
+
+    service = get_places_service()
+    photo_data = service.get_place_photo(photo_reference, max_width=max_width)
+    if not photo_data:
+        raise NotFoundError(message="Failed to fetch photo")
+
+    return StreamingResponse(
+        io.BytesIO(photo_data),
+        media_type="image/jpeg"
+    )
+
+
 @router.get("/{place_id}/photo")
 async def get_place_photo(
     place_id: str,
