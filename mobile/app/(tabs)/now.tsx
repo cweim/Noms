@@ -113,6 +113,13 @@ export default function NowScreen() {
     // The place will now be shown as current card (since it's back in rankedPlaces)
   };
 
+  const handleDone = () => {
+    // User is done considering and going to a restaurant - reset everything
+    setNowList([]);
+    setSkippedIds(new Set());
+    setShowTempList(false);
+  };
+
   const handleCardPress = (place: Place) => {
     router.push({
       pathname: '/place/[id]',
@@ -227,6 +234,7 @@ export default function NowScreen() {
           onRemove={handleRemoveFromList}
           onSelect={handleSelectPlace}
           onClose={() => setShowTempList(false)}
+          onDone={handleDone}
         />
       )}
     </View>

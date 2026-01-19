@@ -27,6 +27,7 @@ interface TempListOverlayProps {
   onRemove: (place: Place) => void;
   onSelect: (place: Place) => void;
   onClose: () => void;
+  onDone: () => void;
 }
 
 export function TempListOverlay({
@@ -35,6 +36,7 @@ export function TempListOverlay({
   onRemove,
   onSelect,
   onClose,
+  onDone,
 }: TempListOverlayProps) {
   const insets = useSafeAreaInsets();
   const slideAnim = useRef(new Animated.Value(MAX_HEIGHT)).current;
@@ -71,6 +73,22 @@ export function TempListOverlay({
         useNativeDriver: true,
       }),
     ]).start(() => onClose());
+  };
+
+  const handleDone = () => {
+    // Animate out then call onDone (clears list and restarts)
+    Animated.parallel([
+      Animated.timing(slideAnim, {
+        toValue: MAX_HEIGHT,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(() => onDone());
   };
 
   // Calculate content height (header + items + padding)
@@ -110,7 +128,7 @@ export function TempListOverlay({
           <Text style={styles.headerTitle}>
             Considering ({places.length})
           </Text>
-          <TouchableOpacity onPress={handleClose} style={styles.doneButton}>
+          <TouchableOpacity onPress={handleDone} style={styles.doneButton}>
             <Text style={styles.doneButtonText}>Done</Text>
           </TouchableOpacity>
         </View>
