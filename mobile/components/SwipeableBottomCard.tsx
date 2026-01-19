@@ -24,6 +24,7 @@ interface SwipeableBottomCardProps {
   onSkip: (place: Place) => void;
   onSave: (place: Place) => void;
   onConsider: (place: Place) => void;
+  onPress?: (place: Place) => void;
 }
 
 export function SwipeableBottomCard({
@@ -32,6 +33,7 @@ export function SwipeableBottomCard({
   onSkip,
   onSave,
   onConsider,
+  onPress,
 }: SwipeableBottomCardProps) {
   const pan = useRef(new Animated.ValueXY()).current;
 
@@ -94,32 +96,40 @@ export function SwipeableBottomCard({
       {...panResponder.panHandlers}
     >
       <View style={styles.card}>
-        {/* Photo thumbnail */}
-        <View style={styles.photoContainer}>
-          {photoUrl ? (
-            <Image source={{ uri: photoUrl }} style={styles.photo} />
-          ) : (
-            <View style={styles.photoPlaceholder}>
-              <Ionicons name="restaurant" size={32} color="#9CA3AF" />
-            </View>
-          )}
-        </View>
+        {/* Tappable area: photo + info */}
+        <TouchableOpacity
+          style={styles.tappableArea}
+          onPress={() => onPress?.(place)}
+          activeOpacity={0.7}
+          disabled={!onPress}
+        >
+          {/* Photo thumbnail */}
+          <View style={styles.photoContainer}>
+            {photoUrl ? (
+              <Image source={{ uri: photoUrl }} style={styles.photo} />
+            ) : (
+              <View style={styles.photoPlaceholder}>
+                <Ionicons name="restaurant" size={32} color="#9CA3AF" />
+              </View>
+            )}
+          </View>
 
-        {/* Info section */}
-        <View style={styles.infoContainer}>
-          <Text style={styles.name} numberOfLines={1}>{place.name}</Text>
+          {/* Info section */}
+          <View style={styles.infoContainer}>
+            <Text style={styles.name} numberOfLines={1}>{place.name}</Text>
 
-          {place.rating && (
-            <View style={styles.ratingRow}>
-              <Ionicons name="star" size={14} color="#F97316" />
-              <Text style={styles.rating}>{place.rating.toFixed(1)}</Text>
-            </View>
-          )}
+            {place.rating && (
+              <View style={styles.ratingRow}>
+                <Ionicons name="star" size={14} color="#F97316" />
+                <Text style={styles.rating}>{place.rating.toFixed(1)}</Text>
+              </View>
+            )}
 
-          {place.address && (
-            <Text style={styles.address} numberOfLines={1}>{place.address}</Text>
-          )}
-        </View>
+            {place.address && (
+              <Text style={styles.address} numberOfLines={1}>{place.address}</Text>
+            )}
+          </View>
+        </TouchableOpacity>
 
         {/* Action buttons */}
         <View style={styles.buttonsContainer}>
@@ -171,6 +181,11 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 8,
     overflow: 'hidden',
+  },
+  tappableArea: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   photoContainer: {
     width: PHOTO_SIZE,

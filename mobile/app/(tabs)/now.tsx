@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { useLocation } from '../../lib/use-location';
 import { usePlaces } from '../../lib/use-places';
 import { useSavedPlaces } from '../../lib/use-saved-places';
@@ -112,6 +113,13 @@ export default function NowScreen() {
     // The place will now be shown as current card (since it's back in rankedPlaces)
   };
 
+  const handleCardPress = (place: Place) => {
+    router.push({
+      pathname: '/place/[id]',
+      params: { id: place.google_place_id },
+    });
+  };
+
   // Generate photo URL for current place
   const photoUrl = currentPlace?.google_place_id && token
     ? getPhotoUrl(currentPlace.google_place_id, token)
@@ -191,6 +199,7 @@ export default function NowScreen() {
             onSkip={handleSkip}
             onSave={handleSave}
             onConsider={handleConsider}
+            onPress={handleCardPress}
           />
         )}
 
