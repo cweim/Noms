@@ -198,12 +198,12 @@ Plans:
 #### Phase 16: Place Details Screen
 **Goal**: Full restaurant details with name, address, phone, hours, photo gallery, and Google reviews
 **Depends on**: Phase 13
-**Research**: Likely (Google Places API detail fields)
-**Research topics**: Google Places API fields for hours, reviews, multiple photos
-**Plans**: TBD
+**Research**: Skipped (Level 0 - backend already prepared in Phase 13-02)
+**Plans**: 2 plans
 
 Plans:
-- [ ] 16-01: TBD
+- [ ] 16-01: Place Details Screen Core - API client, PlaceDetailsScreen component, photo endpoint
+- [ ] 16-02: Navigation Integration - Connect Now and Saved screens to details
 
 #### Phase 17: Integration & Polish
 **Goal**: Connect all flows, cross-platform testing, final polish
