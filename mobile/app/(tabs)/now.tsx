@@ -9,6 +9,7 @@ import { rankPlaces } from '../../lib/rank-places';
 import { getAuthToken, getPhotoUrl } from '../../lib/api';
 import { PlaceMarker, Place } from '../../components/PlaceMarker';
 import { SwipeableBottomCard } from '../../components/SwipeableBottomCard';
+import { TempListOverlay } from '../../components/TempListOverlay';
 
 export default function NowScreen() {
   const insets = useSafeAreaInsets();
@@ -26,6 +27,9 @@ export default function NowScreen() {
 
   // "Consider now" temp list (session-only)
   const [nowList, setNowList] = useState<Place[]>([]);
+
+  // Temp list overlay visibility
+  const [showTempList, setShowTempList] = useState(false);
 
   // Map ref for programmatic control
   const mapRef = useRef<MapView>(null);
@@ -83,6 +87,31 @@ export default function NowScreen() {
     console.log('Considering:', place.name);
   };
 
+  const handleRemoveFromList = (place: Place) => {
+    setNowList(prev => {
+      const newList = prev.filter(p => p.google_place_id !== place.google_place_id);
+      // If list becomes empty, close overlay
+      if (newList.length === 0) {
+        setShowTempList(false);
+      }
+      return newList;
+    });
+  };
+
+  const handleSelectPlace = (place: Place) => {
+    // Clear nowList
+    setNowList([]);
+    // Close overlay
+    setShowTempList(false);
+    // Remove from skippedIds so it becomes current card again
+    setSkippedIds(prev => {
+      const next = new Set(prev);
+      next.delete(place.google_place_id);
+      return next;
+    });
+    // The place will now be shown as current card (since it's back in rankedPlaces)
+  };
+
   // Generate photo URL for current place
   const photoUrl = currentPlace?.google_place_id && token
     ? getPhotoUrl(currentPlace.google_place_id, token)
@@ -127,13 +156,17 @@ export default function NowScreen() {
         ))}
       </MapView>
 
-      {/* "Consider now" count badge */}
+      {/* "Consider now" count badge (tappable) */}
       {nowList.length > 0 && (
-        <View style={[styles.countBadge, { top: insets.top + 16 }]}>
+        <TouchableOpacity
+          style={[styles.countBadge, { top: insets.top + 16 }]}
+          onPress={() => setShowTempList(true)}
+          activeOpacity={0.8}
+        >
           <Text style={styles.countBadgeText}>
             {nowList.length} considering
           </Text>
-        </View>
+        </TouchableOpacity>
       )}
 
       {/* Bottom card container */}
@@ -176,6 +209,17 @@ export default function NowScreen() {
           </View>
         )}
       </View>
+
+      {/* Temp list overlay */}
+      {showTempList && nowList.length > 0 && (
+        <TempListOverlay
+          places={nowList}
+          token={token}
+          onRemove={handleRemoveFromList}
+          onSelect={handleSelectPlace}
+          onClose={() => setShowTempList(false)}
+        />
+      )}
     </View>
   );
 }

@@ -193,7 +193,7 @@ Plans:
 
 Plans:
 - [x] 15-01: Swipeable Card with Gestures - SwipeableBottomCard, swipe up detection, nowList state
-- [ ] 15-02: Temp List UI and Review - TempListOverlay, selection flow, list management
+- [x] 15-02: Temp List UI and Review - TempListOverlay, selection flow, list management
 
 #### Phase 16: Place Details Screen
 **Goal**: Full restaurant details with name, address, phone, hours, photo gallery, and Google reviews
@@ -235,6 +235,6 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 12. Integration & Polish | v1.0 | 3/3 | Complete | 2026-01-18 |
 | 13. Bug Fix & Backend Prep | v1.1 | 2/2 | Complete | 2026-01-18 |
 | 14. Now Page UX Redesign | v1.1 | 1/1 | Complete | 2026-01-19 |
-| 15. Now Temp List System | v1.1 | 0/? | Not started | - |
+| 15. Now Temp List System | v1.1 | 2/2 | Complete | 2026-01-19 |
 | 16. Place Details Screen | v1.1 | 0/? | Not started | - |
 | 17. Integration & Polish | v1.1 | 0/? | Not started | - |
