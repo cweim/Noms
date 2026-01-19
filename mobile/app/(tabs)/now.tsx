@@ -29,6 +29,9 @@ export default function NowScreen() {
   // "Consider now" temp list (session-only)
   const [nowList, setNowList] = useState<Place[]>([]);
 
+  // Track if user has swiped up at least once this session (to hide hint)
+  const [hasSwipedUp, setHasSwipedUp] = useState(false);
+
   // Temp list overlay visibility
   const [showTempList, setShowTempList] = useState(false);
 
@@ -85,6 +88,8 @@ export default function NowScreen() {
     setNowList(prev => [...prev, place]);
     // Also add to skippedIds so we advance to next card
     setSkippedIds(prev => new Set([...prev, place.google_place_id]));
+    // Hide swipe hint after first swipe up
+    setHasSwipedUp(true);
     console.log('Considering:', place.name);
   };
 
@@ -207,6 +212,7 @@ export default function NowScreen() {
             onSave={handleSave}
             onConsider={handleConsider}
             onPress={handleCardPress}
+            showSwipeHint={!hasSwipedUp}
           />
         )}
 

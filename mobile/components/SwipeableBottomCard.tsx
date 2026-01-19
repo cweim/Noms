@@ -25,6 +25,7 @@ interface SwipeableBottomCardProps {
   onSave: (place: Place) => void;
   onConsider: (place: Place) => void;
   onPress?: (place: Place) => void;
+  showSwipeHint?: boolean;
 }
 
 export function SwipeableBottomCard({
@@ -34,6 +35,7 @@ export function SwipeableBottomCard({
   onSave,
   onConsider,
   onPress,
+  showSwipeHint = true,
 }: SwipeableBottomCardProps) {
   const pan = useRef(new Animated.ValueXY()).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -121,10 +123,12 @@ export function SwipeableBottomCard({
       {...panResponder.panHandlers}
     >
       {/* Swipe up hint - above card */}
-      <Animated.View style={[styles.swipeHint, { opacity: pulseAnim }]}>
-        <Ionicons name="chevron-up" size={16} color="#6B7280" />
-        <Text style={styles.swipeHintText}>Swipe up to consider</Text>
-      </Animated.View>
+      {showSwipeHint && (
+        <Animated.View style={[styles.swipeHint, { opacity: pulseAnim }]}>
+          <Ionicons name="chevron-up" size={16} color="#6B7280" />
+          <Text style={styles.swipeHintText}>Swipe up to consider</Text>
+        </Animated.View>
+      )}
 
       <View style={styles.card}>
         {/* Tappable area: photo + info */}
