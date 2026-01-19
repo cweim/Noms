@@ -104,18 +104,21 @@ export default function NowScreen() {
     });
   };
 
-  const handleSelectPlace = (place: Place) => {
-    // Clear nowList
-    setNowList([]);
-    // Close overlay
+  const handleLocatePlace = (place: Place) => {
+    // Close overlay and center map on selected place
     setShowTempList(false);
-    // Remove from skippedIds so it becomes current card again
-    setSkippedIds(prev => {
-      const next = new Set(prev);
-      next.delete(place.google_place_id);
-      return next;
-    });
-    // The place will now be shown as current card (since it's back in rankedPlaces)
+    // Animate map to the selected place
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(
+        {
+          latitude: place.location.lat,
+          longitude: place.location.lng,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        },
+        500
+      );
+    }
   };
 
   const handleDone = () => {
@@ -238,7 +241,7 @@ export default function NowScreen() {
           places={nowList}
           token={token}
           onRemove={handleRemoveFromList}
-          onSelect={handleSelectPlace}
+          onLocate={handleLocatePlace}
           onClose={() => setShowTempList(false)}
           onDone={handleDone}
         />

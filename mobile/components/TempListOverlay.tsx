@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Dimensions,
   Animated,
   TouchableWithoutFeedback,
+  Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,7 +26,7 @@ interface TempListOverlayProps {
   places: Place[];
   token: string | null;
   onRemove: (place: Place) => void;
-  onSelect: (place: Place) => void;
+  onLocate: (place: Place) => void;
   onClose: () => void;
   onDone: () => void;
 }
@@ -34,13 +35,14 @@ export function TempListOverlay({
   places,
   token,
   onRemove,
-  onSelect,
+  onLocate,
   onClose,
   onDone,
 }: TempListOverlayProps) {
   const insets = useSafeAreaInsets();
   const slideAnim = useRef(new Animated.Value(MAX_HEIGHT)).current;
   const backdropAnim = useRef(new Animated.Value(0)).current;
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     // Animate in
@@ -75,7 +77,13 @@ export function TempListOverlay({
     ]).start(() => onClose());
   };
 
-  const handleDone = () => {
+  const handleDonePress = () => {
+    // Show confirmation modal
+    setShowConfirm(true);
+  };
+
+  const confirmDone = () => {
+    setShowConfirm(false);
     // Animate out then call onDone (clears list and restarts)
     Animated.parallel([
       Animated.timing(slideAnim, {
@@ -89,6 +97,22 @@ export function TempListOverlay({
         useNativeDriver: true,
       }),
     ]).start(() => onDone());
+  };
+
+  const handleLocate = (place: Place) => {
+    // Close overlay and center map on selected place
+    Animated.parallel([
+      Animated.timing(slideAnim, {
+        toValue: MAX_HEIGHT,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropAnim, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(() => onLocate(place));
   };
 
   // Calculate content height (header + items + padding)
@@ -128,7 +152,7 @@ export function TempListOverlay({
           <Text style={styles.headerTitle}>
             Considering ({places.length})
           </Text>
-          <TouchableOpacity onPress={handleDone} style={styles.doneButton}>
+          <TouchableOpacity onPress={handleDonePress} style={styles.doneButton}>
             <Text style={styles.doneButtonText}>Done</Text>
           </TouchableOpacity>
         </View>
@@ -145,7 +169,7 @@ export function TempListOverlay({
             <TouchableOpacity
               key={place.google_place_id}
               style={styles.placeItem}
-              onPress={() => onSelect(place)}
+              onPress={() => handleLocate(place)}
               activeOpacity={0.7}
             >
               {/* Photo */}
@@ -199,6 +223,38 @@ export function TempListOverlay({
           ))}
         </ScrollView>
       </Animated.View>
+
+      {/* Confirmation Modal */}
+      <Modal
+        visible={showConfirm}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowConfirm(false)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalEmoji}>🍽️</Text>
+            <Text style={styles.modalTitle}>Time to eat!</Text>
+            <Text style={styles.modalMessage}>
+              Ready to head out? This will clear your list so you can start fresh next time.
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={styles.modalCancelButton}
+                onPress={() => setShowConfirm(false)}
+              >
+                <Text style={styles.modalCancelText}>Keep Looking</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalConfirmButton}
+                onPress={confirmDone}
+              >
+                <Text style={styles.modalConfirmText}>Let's Go!</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -317,5 +373,71 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  modalCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    padding: 28,
+    width: '100%',
+    maxWidth: 320,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  modalEmoji: {
+    fontSize: 48,
+    marginBottom: 12,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 8,
+  },
+  modalMessage: {
+    fontSize: 15,
+    color: '#6B7280',
+    textAlign: 'center',
+    lineHeight: 22,
+    marginBottom: 24,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    width: '100%',
+  },
+  modalCancelButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 12,
+    backgroundColor: '#F3F4F6',
+    alignItems: 'center',
+  },
+  modalCancelText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#6B7280',
+  },
+  modalConfirmButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 12,
+    backgroundColor: '#F97316',
+    alignItems: 'center',
+  },
+  modalConfirmText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#FFFFFF',
   },
 });
