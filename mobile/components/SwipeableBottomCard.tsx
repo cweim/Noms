@@ -99,6 +99,12 @@ export function SwipeableBottomCard({
       style={[styles.cardWrapper, animatedStyle]}
       {...panResponder.panHandlers}
     >
+      {/* Swipe up hint - above card */}
+      <View style={styles.swipeHint}>
+        <Ionicons name="chevron-up" size={16} color="#6B7280" />
+        <Text style={styles.swipeHintText}>Swipe up to consider</Text>
+      </View>
+
       <View style={styles.card}>
         {/* Tappable area: photo + info */}
         <TouchableOpacity
@@ -156,12 +162,6 @@ export function SwipeableBottomCard({
 
         {/* Consider overlay (orange tint when swiping up) */}
         <Animated.View style={[styles.considerOverlay, { opacity: considerOpacity }]} />
-      </View>
-
-      {/* Swipe up hint */}
-      <View style={styles.swipeHint}>
-        <Ionicons name="chevron-up" size={16} color="#9CA3AF" />
-        <Text style={styles.swipeHintText}>Swipe up to consider</Text>
       </View>
     </Animated.View>
   );
@@ -270,12 +270,12 @@ const styles = StyleSheet.create({
   swipeHint: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
-    opacity: 0.6,
+    marginBottom: 10,
   },
   swipeHintText: {
-    fontSize: 12,
-    color: '#9CA3AF',
+    fontSize: 13,
+    color: '#6B7280',
     marginLeft: 4,
+    fontWeight: '500',
   },
 });
