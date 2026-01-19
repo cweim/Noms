@@ -183,7 +183,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 14-01: Bottom Card Layout - Create compact bottom card, map centering, selected marker
+- [x] 14-01: Bottom Card Layout - Create compact bottom card, map centering, selected marker
 
 #### Phase 15: Now Temp List System
 **Goal**: Implement swipe up gesture for "Now" list, temp list storage, and review phase
@@ -233,7 +233,7 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 11. Photo Journal | v1.0 | 3/3 | Complete | 2026-01-18 |
 | 12. Integration & Polish | v1.0 | 3/3 | Complete | 2026-01-18 |
 | 13. Bug Fix & Backend Prep | v1.1 | 2/2 | Complete | 2026-01-18 |
-| 14. Now Page UX Redesign | v1.1 | 0/? | Not started | - |
+| 14. Now Page UX Redesign | v1.1 | 1/1 | Complete | 2026-01-19 |
 | 15. Now Temp List System | v1.1 | 0/? | Not started | - |
 | 16. Place Details Screen | v1.1 | 0/? | Not started | - |
 | 17. Integration & Polish | v1.1 | 0/? | Not started | - |

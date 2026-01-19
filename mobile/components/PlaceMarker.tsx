@@ -16,9 +16,10 @@ export interface Place {
 interface PlaceMarkerProps {
   place: Place;
   onPress?: (place: Place) => void;
+  isSelected?: boolean;
 }
 
-export function PlaceMarker({ place, onPress }: PlaceMarkerProps) {
+export function PlaceMarker({ place, onPress, isSelected = false }: PlaceMarkerProps) {
   return (
     <Marker
       coordinate={{
@@ -26,10 +27,18 @@ export function PlaceMarker({ place, onPress }: PlaceMarkerProps) {
         longitude: place.location.lng,
       }}
       onPress={() => onPress?.(place)}
+      zIndex={isSelected ? 1000 : 1}
     >
       {/* Custom marker view - warm orange color to match brand */}
-      <View style={styles.markerContainer}>
-        <Ionicons name="restaurant" size={20} color="#FFFFFF" />
+      <View style={[
+        styles.markerContainer,
+        isSelected && styles.markerSelected
+      ]}>
+        <Ionicons
+          name="restaurant"
+          size={isSelected ? 28 : 20}
+          color="#FFFFFF"
+        />
       </View>
 
       {/* Callout shown when marker is tapped */}
@@ -62,6 +71,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 4,
+  },
+  markerSelected: {
+    backgroundColor: '#EA580C',
+    borderRadius: 28,
+    padding: 14,
+    borderWidth: 3,
+    borderColor: '#FFFFFF',
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
   },
   callout: {
     width: 200,
