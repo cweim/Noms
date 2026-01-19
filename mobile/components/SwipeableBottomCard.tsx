@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -36,10 +36,31 @@ export function SwipeableBottomCard({
   onPress,
 }: SwipeableBottomCardProps) {
   const pan = useRef(new Animated.ValueXY()).current;
+  const pulseAnim = useRef(new Animated.Value(1)).current;
 
   // Keep a ref to current place to avoid stale closure in panResponder
   const placeRef = useRef(place);
   placeRef.current = place;
+
+  // Pulsing animation for swipe hint
+  useEffect(() => {
+    const pulse = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 0.4,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    pulse.start();
+    return () => pulse.stop();
+  }, []);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -100,10 +121,10 @@ export function SwipeableBottomCard({
       {...panResponder.panHandlers}
     >
       {/* Swipe up hint - above card */}
-      <View style={styles.swipeHint}>
+      <Animated.View style={[styles.swipeHint, { opacity: pulseAnim }]}>
         <Ionicons name="chevron-up" size={16} color="#6B7280" />
         <Text style={styles.swipeHintText}>Swipe up to consider</Text>
-      </View>
+      </Animated.View>
 
       <View style={styles.card}>
         {/* Tappable area: photo + info */}
