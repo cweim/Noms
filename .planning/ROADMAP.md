@@ -208,11 +208,11 @@ Plans:
 #### Phase 17: Integration & Polish
 **Goal**: Connect all flows, cross-platform testing, final polish
 **Depends on**: Phase 14, Phase 15, Phase 16
-**Research**: Unlikely (internal testing)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - internal testing and cleanup)
+**Plans**: 1 plan
 
 Plans:
-- [ ] 17-01: TBD
+- [ ] 17-01: E2E Verification & Cleanup - Remove deprecated components, verify v1.1 flows
 
 ## Progress
 
@@ -237,4 +237,4 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 14. Now Page UX Redesign | v1.1 | 1/1 | Complete | 2026-01-19 |
 | 15. Now Temp List System | v1.1 | 2/2 | Complete | 2026-01-19 |
 | 16. Place Details Screen | v1.1 | 2/2 | Complete | 2026-01-19 |
-| 17. Integration & Polish | v1.1 | 0/? | Not started | - |
+| 17. Integration & Polish | v1.1 | 0/1 | Not started | - |
