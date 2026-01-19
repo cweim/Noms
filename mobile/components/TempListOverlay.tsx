@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { Place } from './PlaceMarker';
 import { getPhotoUrl } from '../lib/api';
 
@@ -156,6 +157,18 @@ export function TempListOverlay({
                 )}
               </View>
 
+              {/* Info button - navigate to details */}
+              <TouchableOpacity
+                style={styles.infoButton}
+                onPress={() => router.push({
+                  pathname: '/place/[id]',
+                  params: { id: place.google_place_id },
+                })}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              >
+                <Ionicons name="information-circle-outline" size={22} color="#6B7280" />
+              </TouchableOpacity>
+
               {/* Remove button */}
               <TouchableOpacity
                 style={styles.removeButton}
@@ -272,6 +285,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#F97316',
     marginLeft: 4,
+  },
+  infoButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   removeButton: {
     width: 36,
