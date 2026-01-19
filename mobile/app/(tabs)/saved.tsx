@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Image, RefreshControl } from 'react-native';
+import { router } from 'expo-router';
 import { useSavedPlaces, SavedPlace } from '../../lib/use-saved-places';
 import { getAuthToken, getPhotoUrl } from '../../lib/api';
 
-function SavedPlaceCard({ place, onUnsave, token }: { place: SavedPlace; onUnsave: (id: string) => void; token: string | null }) {
+function SavedPlaceCard({ place, onUnsave, onPress, token }: { place: SavedPlace; onUnsave: (id: string) => void; onPress: () => void; token: string | null }) {
   const photoUrl = place.photo_reference && token
     ? getPhotoUrl(place.google_place_id, token)
     : null;
 
   return (
     <View style={styles.card}>
-      {photoUrl && (
-        <Image source={{ uri: photoUrl }} style={styles.cardImage} />
-      )}
-      <View style={styles.cardContent}>
-        <Text style={styles.cardName} numberOfLines={1}>{place.name}</Text>
-        {place.address && (
-          <Text style={styles.cardAddress} numberOfLines={1}>{place.address}</Text>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+        {photoUrl && (
+          <Image source={{ uri: photoUrl }} style={styles.cardImage} />
         )}
-      </View>
+        <View style={styles.cardContent}>
+          <Text style={styles.cardName} numberOfLines={1}>{place.name}</Text>
+          {place.address && (
+            <Text style={styles.cardAddress} numberOfLines={1}>{place.address}</Text>
+          )}
+        </View>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.unsaveButton} onPress={() => onUnsave(place.id)}>
         <Text style={styles.unsaveText}>Remove</Text>
       </TouchableOpacity>
@@ -79,7 +82,15 @@ export default function SavedScreen() {
         data={savedPlaces}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <SavedPlaceCard place={item} onUnsave={unsave} token={token} />
+          <SavedPlaceCard
+            place={item}
+            onUnsave={unsave}
+            onPress={() => router.push({
+              pathname: '/place/[id]',
+              params: { id: item.google_place_id },
+            })}
+            token={token}
+          />
         )}
         contentContainerStyle={styles.list}
         refreshControl={
