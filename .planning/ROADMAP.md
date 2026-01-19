@@ -202,7 +202,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 16-01: Place Details Screen Core - API client, PlaceDetailsScreen component, photo endpoint
+- [x] 16-01: Place Details Screen Core - API client, PlaceDetailsScreen component, photo endpoint
 - [ ] 16-02: Navigation Integration - Connect Now and Saved screens to details
 
 #### Phase 17: Integration & Polish
@@ -236,5 +236,5 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 13. Bug Fix & Backend Prep | v1.1 | 2/2 | Complete | 2026-01-18 |
 | 14. Now Page UX Redesign | v1.1 | 1/1 | Complete | 2026-01-19 |
 | 15. Now Temp List System | v1.1 | 2/2 | Complete | 2026-01-19 |
-| 16. Place Details Screen | v1.1 | 0/? | Not started | - |
+| 16. Place Details Screen | v1.1 | 1/2 | In progress | - |
 | 17. Integration & Polish | v1.1 | 0/? | Not started | - |
