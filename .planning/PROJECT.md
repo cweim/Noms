@@ -12,19 +12,23 @@ The product must be useful for a single user on day one and improve automaticall
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Map-based restaurant picker with location context and spatial awareness — v1.0, enhanced v1.1
+- ✓ Swipeable restaurant cards for quick decision-making (skip/like actions) — v1.0
+- ✓ Save places to lists (default: Saved) — v1.0
+- ✓ Personal food journal (photo-first with optional 1-tap rating) — v1.0
+- ✓ On-demand restaurant lookup via Google Places API — v1.0
+- ✓ Saved places persist across app restarts — v1.0
+- ✓ Journal entries correctly link to places — v1.0
+- ✓ App functions without any social connections — v1.0
+- ✓ Bottom card layout with map centering on current restaurant — v1.1
+- ✓ "Consider now" temp list for decision narrowing — v1.1
+- ✓ Place details screen with photo gallery, contact info, hours — v1.1
 
 ### Active
 
-- [ ] Map-based restaurant picker with location context and spatial awareness
-- [ ] Swipeable restaurant cards for quick decision-making (skip/like actions)
-- [ ] Save places to lists (default: Saved, with passive themed list option in UI)
-- [ ] Personal food journal (photo-first with optional 1-tap rating)
-- [ ] On-demand restaurant lookup via Google Places API
-- [ ] User can select a restaurant within 60 seconds
-- [ ] Saved places persist across app restarts
-- [ ] Journal entries correctly link to places
-- [ ] App functions without any social connections
+- [ ] User can select a restaurant within 60 seconds (needs timing validation)
+- [ ] Passive themed list suggestions in UI
+- [ ] Preference-based dietary filters for ranking
 
 ### Out of Scope
 
@@ -36,10 +40,16 @@ The product must be useful for a single user on day one and improve automaticall
 
 ## Context
 
+**Current State (v1.1 shipped 2026-01-19):**
+- ~5,200 LOC total (3,644 mobile TypeScript + 1,590 backend Python)
+- 17 phases, 31 plans completed across 2 milestones
+- Core flows working: Now picker, Saved places, Photo journal
+- v1.1 added: bottom card layout, temp list, place details screen
+
 **Product Stage:**
-- Early MVP stage, UI and data models expected to evolve
-- Backward compatibility not guaranteed
-- Focus on shipping and learning quickly
+- Post-MVP, ready for user testing
+- Core UX patterns established
+- Focus on feedback and iteration
 
 **User Jobs:**
 1. Primary: Decide where to eat now (in-the-moment decision under time pressure)
@@ -80,13 +90,17 @@ The product must be useful for a single user on day one and improve automaticall
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Google Places API | Comprehensive restaurant data, familiar to users, good mobile SDK support | — Pending |
-| Supabase Auth | Open source, native PostgreSQL integration, includes user management | — Pending |
-| FastAPI (Python) backend | Fast prototyping, type safety with Pydantic, async support for API calls | — Pending |
-| Preference-based dietary filters | Influences ranking without strict exclusion, more options for users, MVP-friendly | — Pending |
-| Passive themed list suggestions | Show organization option in UI without prompting, lower friction for MVP | — Pending |
-| Journal: Photo + optional 1-tap rating | Balances zero-effort logging with useful data capture for future recommendations | — Pending |
-| iOS primary, Android tested | Focused testing on primary platform while ensuring cross-platform doesn't break | — Pending |
+| Google Places API | Comprehensive restaurant data, familiar to users, good mobile SDK support | ✓ Good — works well, photos via proxy |
+| Supabase Auth | Open source, native PostgreSQL integration, includes user management | ✓ Good — JWT validation simple |
+| FastAPI (Python) backend | Fast prototyping, type safety with Pydantic, async support for API calls | ✓ Good — clean API design |
+| Query param auth for photos | Image components can't send headers, needed for authenticated photo URLs | ✓ Good — solved v1.1 bug |
+| Session-only temp list | "Consider now" list doesn't need persistence, simplifies implementation | ✓ Good — appropriate for use case |
+| Bottom card + map centering | Spatial context helps decision-making, map-first design principle | ✓ Good — v1.1 core improvement |
+| Swipe up for "consider" | Distinct gesture from skip/save, natural "hold onto this" metaphor | ✓ Good — intuitive UX |
+| Preference-based dietary filters | Influences ranking without strict exclusion, more options for users, MVP-friendly | — Deferred to v1.2 |
+| Passive themed list suggestions | Show organization option in UI without prompting, lower friction for MVP | — Deferred to v1.2 |
+| Journal: Photo + optional 1-tap rating | Balances zero-effort logging with useful data capture for future recommendations | ✓ Good — working in v1.0 |
+| iOS primary, Android tested | Focused testing on primary platform while ensuring cross-platform doesn't break | — Pending testing |
 
 ---
-*Last updated: 2026-01-13 after initialization*
+*Last updated: 2026-01-19 after v1.1 milestone*
