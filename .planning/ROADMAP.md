@@ -188,11 +188,12 @@ Plans:
 #### Phase 15: Now Temp List System
 **Goal**: Implement swipe up gesture for "Now" list, temp list storage, and review phase
 **Depends on**: Phase 14
-**Research**: Unlikely (internal state management, existing patterns)
-**Plans**: TBD
+**Research**: Skipped (Level 0 - existing patterns)
+**Plans**: 2 plans
 
 Plans:
-- [ ] 15-01: TBD
+- [ ] 15-01: Swipeable Card with Gestures - SwipeableBottomCard, swipe up detection, nowList state
+- [ ] 15-02: Temp List UI and Review - TempListOverlay, selection flow, list management
 
 #### Phase 16: Place Details Screen
 **Goal**: Full restaurant details with name, address, phone, hours, photo gallery, and Google reviews
