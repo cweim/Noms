@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocation } from '../../lib/use-location';
 import { usePlaces } from '../../lib/use-places';
 import { useSavedPlaces } from '../../lib/use-saved-places';
 import { rankPlaces } from '../../lib/rank-places';
 import { getAuthToken, getPhotoUrl } from '../../lib/api';
 import { PlaceMarker, Place } from '../../components/PlaceMarker';
-import { BottomRestaurantCard } from '../../components/BottomRestaurantCard';
+import { SwipeableBottomCard } from '../../components/SwipeableBottomCard';
 
 export default function NowScreen() {
+  const insets = useSafeAreaInsets();
   const { location, loading: locationLoading, error: locationError, requestPermission } = useLocation();
   const { places, loading: placesLoading, error: placesError } = usePlaces(
     location ? { latitude: location.latitude, longitude: location.longitude } : null
@@ -21,6 +23,9 @@ export default function NowScreen() {
 
   // Track skipped places
   const [skippedIds, setSkippedIds] = useState<Set<string>>(new Set());
+
+  // "Consider now" temp list (session-only)
+  const [nowList, setNowList] = useState<Place[]>([]);
 
   // Map ref for programmatic control
   const mapRef = useRef<MapView>(null);
@@ -70,6 +75,14 @@ export default function NowScreen() {
     setSkippedIds(prev => new Set([...prev, place.google_place_id]));
   };
 
+  const handleConsider = (place: Place) => {
+    // Add to "consider now" temp list
+    setNowList(prev => [...prev, place]);
+    // Also add to skippedIds so we advance to next card
+    setSkippedIds(prev => new Set([...prev, place.google_place_id]));
+    console.log('Considering:', place.name);
+  };
+
   // Generate photo URL for current place
   const photoUrl = currentPlace?.google_place_id && token
     ? getPhotoUrl(currentPlace.google_place_id, token)
@@ -114,6 +127,15 @@ export default function NowScreen() {
         ))}
       </MapView>
 
+      {/* "Consider now" count badge */}
+      {nowList.length > 0 && (
+        <View style={[styles.countBadge, { top: insets.top + 16 }]}>
+          <Text style={styles.countBadgeText}>
+            {nowList.length} considering
+          </Text>
+        </View>
+      )}
+
       {/* Bottom card container */}
       <View style={styles.bottomContainer}>
         {placesLoading && !currentPlace && (
@@ -130,11 +152,12 @@ export default function NowScreen() {
         )}
 
         {currentPlace && (
-          <BottomRestaurantCard
+          <SwipeableBottomCard
             place={currentPlace}
             photoUrl={photoUrl}
             onSkip={handleSkip}
             onSave={handleSave}
+            onConsider={handleConsider}
           />
         )}
 
@@ -143,7 +166,10 @@ export default function NowScreen() {
             <Text style={styles.emptyCardText}>No more restaurants nearby</Text>
             <TouchableOpacity
               style={styles.resetButton}
-              onPress={() => setSkippedIds(new Set())}
+              onPress={() => {
+                setSkippedIds(new Set());
+                setNowList([]);
+              }}
             >
               <Text style={styles.resetButtonText}>Start Over</Text>
             </TouchableOpacity>
@@ -161,6 +187,24 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  countBadge: {
+    position: 'absolute',
+    right: 16,
+    backgroundColor: '#F97316',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  countBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '600',
   },
   bottomContainer: {
     position: 'absolute',

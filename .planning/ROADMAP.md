@@ -192,7 +192,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 15-01: Swipeable Card with Gestures - SwipeableBottomCard, swipe up detection, nowList state
+- [x] 15-01: Swipeable Card with Gestures - SwipeableBottomCard, swipe up detection, nowList state
 - [ ] 15-02: Temp List UI and Review - TempListOverlay, selection flow, list management
 
 #### Phase 16: Place Details Screen
