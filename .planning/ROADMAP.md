@@ -11,7 +11,7 @@ None
 ## Milestones
 
 - ✅ **v1.0 MVP** - Phases 1-12 (shipped 2026-01-18)
-- 🚧 **v1.1 Now Flow Redesign** - Phases 13-17 (in progress)
+- ✅ **v1.1 Now Flow Redesign** - Phases 13-17 (shipped 2026-01-19)
 
 ## Phases
 
@@ -162,7 +162,7 @@ Plans:
 - [x] 12-02: End-to-End Flow Verification - Test all three core flows with checkpoints
 - [x] 12-03: Final Polish - Sign out, pull-to-refresh, UI consistency
 
-### 🚧 v1.1 Now Flow Redesign (In Progress)
+### ✅ v1.1 Now Flow Redesign (Complete)
 
 **Milestone Goal:** Redesign the core picker UX with bottom cards, map integration, two-list system (Save for later vs Consider now), and place details screen
 
@@ -212,7 +212,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 17-01: E2E Verification & Cleanup - Remove deprecated components, verify v1.1 flows
+- [x] 17-01: E2E Verification & Cleanup - Remove deprecated components, verify v1.1 flows
 
 ## Progress
 
@@ -237,4 +237,4 @@ Numeric sort (1 → 2 → ... → 12 → 13 → 14 → 15 → 16 → 17)
 | 14. Now Page UX Redesign | v1.1 | 1/1 | Complete | 2026-01-19 |
 | 15. Now Temp List System | v1.1 | 2/2 | Complete | 2026-01-19 |
 | 16. Place Details Screen | v1.1 | 2/2 | Complete | 2026-01-19 |
-| 17. Integration & Polish | v1.1 | 0/1 | Not started | - |
+| 17. Integration & Polish | v1.1 | 1/1 | Complete | 2026-01-19 |

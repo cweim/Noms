@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** The product must be useful for a single user on day one and improve automatically as usage accumulates.
-**Current focus:** Phase 15 — Now Temp List System (v1.1 Now Flow Redesign)
+**Current focus:** v1.1 Milestone Complete — Now Flow Redesign shipped
 
 ## Current Position
 
-Phase: 15 of 17 (Now Temp List System)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-19 — Phase 14 complete
+Phase: 17 of 17 (Integration & Polish)
+Plan: 1 of 1 complete
+Status: v1.1 Milestone Complete
+Last activity: 2026-01-19 — Phase 17 complete, v1.1 shipped
 
-Progress: ███████████████████████████░░░ 27/31 plans complete (v1.1: 3/7)
+Progress: ████████████████████████████████ 31/31 plans complete (v1.1: 7/7)
 
 ## Performance Metrics
 
@@ -37,8 +37,8 @@ Progress: ███████████████████████�
 
 **Recent Trend:**
 - v1.0 MVP shipped: 24/24 plans complete
-- v1.1 Phase 13: 2/2 plans complete
-- v1.1 Phase 14: 1/1 plans complete
+- v1.1 Now Flow Redesign shipped: 7/7 plans complete
+- Total: 31 plans across 17 phases
 - Trend: Accelerating velocity, maintaining quality
 
 ## Accumulated Context
@@ -76,6 +76,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Phase 14 complete
+Stopped at: v1.1 Milestone complete
 Resume file: None
-Next: Plan Phase 15 (/gsd:plan-phase 15)
+Next: /gsd:complete-milestone or start planning v1.2
