@@ -37,6 +37,10 @@ export function SwipeableBottomCard({
 }: SwipeableBottomCardProps) {
   const pan = useRef(new Animated.ValueXY()).current;
 
+  // Keep a ref to current place to avoid stale closure in panResponder
+  const placeRef = useRef(place);
+  placeRef.current = place;
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gesture) => {
@@ -54,7 +58,7 @@ export function SwipeableBottomCard({
             duration: 200,
             useNativeDriver: false,
           }).start(() => {
-            onConsider(place);
+            onConsider(placeRef.current);
             pan.setValue({ x: 0, y: 0 });
           });
         } else {
