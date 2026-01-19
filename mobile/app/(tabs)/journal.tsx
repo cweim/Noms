@@ -91,8 +91,6 @@ export default function JournalScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Food Journal</Text>
-
       {entries.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyTitle}>No entries yet</Text>
@@ -141,17 +139,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5F5F5',
   },
-  header: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: '#1F2937',
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 16,
-  },
   list: {
     paddingHorizontal: 20,
-    paddingBottom: 100,
+    paddingTop: 16,
+    paddingBottom: 20,
   },
   card: {
     backgroundColor: '#FFFFFF',
@@ -262,7 +253,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    bottom: 100,
+    bottom: 24,
     right: 20,
     width: 56,
     height: 56,

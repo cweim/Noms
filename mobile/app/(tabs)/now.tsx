@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     position: 'absolute',
-    bottom: 100, // Above tab bar
+    bottom: 24,
     left: 16,
     right: 16,
     alignItems: 'center',
